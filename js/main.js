@@ -32,4 +32,34 @@ document.addEventListener(`keydown`, (evt) => {
   }
 });
 
-select(0);
+document.addEventListener(`mousedown`, (evt) => {
+  switch (evt.srcElement.innerHTML) {
+    case `-&gt;`:
+      select(current + 1);
+      break;
+    case `&lt;-`:
+      select(current - 1);
+      break;
+  }
+});
+
+let body = document.body;
+body.insertAdjacentHTML(`beforeEnd`, `<div class="arrows__wrap">
+<style>
+  .arrows__wrap {
+    position: absolute;
+    top: 95px;
+    left: 50%;
+    margin-left: -56px;
+  }
+  .arrows__btn {
+    background: none;
+    border: 2px solid black;
+    padding: 5px 20px;
+  }
+</style>
+<button class="arrows__btn"><-</button>
+<button class="arrows__btn">-></button>
+</div>);`);
+
+select(2);
