@@ -1,5 +1,8 @@
-import {getElementFromTemplate} from './createdom.js';
-const game3 = getElementFromTemplate(`<header class="header">
+import {getElementFromTemplate, changeScreen} from './createdom.js';
+import stats from './stats.js';
+import greeting from './greeting.js';
+
+const template = `<header class="header">
 <button class="back">
   <span class="visually-hidden">Вернуться к началу</span>
   <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
@@ -41,5 +44,26 @@ const game3 = getElementFromTemplate(`<header class="header">
   <li class="stats__result stats__result--fast"></li>
   <li class="stats__result stats__result--unknown"></li>
 </ul>
-</section>`);
+</section>`;
+
+const game3 = getElementFromTemplate(template);
+
+const options = game3.querySelectorAll(`.game__option`);
+
+options[0].addEventListener(`click`, () => {
+  changeScreen(stats);
+});
+
+options[1].addEventListener(`click`, () => {
+  changeScreen(stats);
+});
+
+options[2].addEventListener(`click`, () => {
+  changeScreen(stats);
+});
+
+const backbutton = game3.querySelector(`.back`);
+backbutton.addEventListener(`click`, () => {
+  changeScreen(greeting);
+});
 export default game3;

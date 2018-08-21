@@ -1,5 +1,7 @@
-import {getElementFromTemplate} from './createdom.js';
-const stats = getElementFromTemplate(`<header class="header">
+import {getElementFromTemplate, changeScreen} from './createdom.js';
+import greeting from './greeting.js';
+
+const template = `<header class="header">
 <button class="back">
   <span class="visually-hidden">Вернуться к началу</span>
   <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
@@ -109,5 +111,12 @@ const stats = getElementFromTemplate(`<header class="header">
     <td colspan="5" class="result__total  result__total--final">950</td>
   </tr>
 </table>
-</section>`);
+</section>`;
+const stats = getElementFromTemplate(template);
+
+const backbutton = stats.querySelector(`.back`);
+backbutton.addEventListener(`click`, () => {
+  changeScreen(greeting);
+});
+
 export default stats;

@@ -1,5 +1,7 @@
-import {getElementFromTemplate} from './createdom.js';
-const greeting = getElementFromTemplate(`<section class="greeting central--blur">
+import {getElementFromTemplate, changeScreen} from './createdom.js';
+import rules from './rules.js';
+
+const template = `<section class="greeting central--blur">
 <img class="greeting__logo" src="img/logo_ph-big.svg" width="201" height="89" alt="Pixel Hunter">
 <div class="greeting__asterisk asterisk"><span class="visually-hidden">Я просто красивая звёздочка</span>*</div>
 <div class="greeting__challenge">
@@ -18,7 +20,14 @@ const greeting = getElementFromTemplate(`<section class="greeting central--blur"
     <use xlink:href="img/sprite.svg#arrow-right"></use>
   </svg>
 </button>
-</section>`);
+</section>`;
 
+
+const greeting = getElementFromTemplate(template);
+
+const arrow = greeting.querySelector(`.greeting__continue`);
+arrow.addEventListener(`click`, () => {
+  changeScreen(rules);
+});
 
 export default greeting;

@@ -14,5 +14,4 @@ asterisk.addEventListener(`click`, () => {
   changeScreen(greeting);
 });
 
-
 export default intro;

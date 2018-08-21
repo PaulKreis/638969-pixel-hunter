@@ -1,5 +1,8 @@
-import {getElementFromTemplate} from './createdom.js';
-const rules = getElementFromTemplate(`<header class="header">
+import {getElementFromTemplate, changeScreen} from './createdom.js';
+import game1 from './game1.js';
+import greeting from './greeting.js';
+
+const template = `<header class="header">
 <button class="back">
   <span class="visually-hidden">Вернуться к началу</span>
   <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
@@ -25,5 +28,27 @@ const rules = getElementFromTemplate(`<header class="header">
   <input class="rules__input" type="text" placeholder="Ваше Имя">
   <button class="rules__button  continue" type="submit" disabled>Go!</button>
 </form>
-</section>`);
+</section>`;
+
+const rules = getElementFromTemplate(template);
+
+const submit = rules.querySelector(`.rules__button`);
+submit.addEventListener(`click`, () => {
+  changeScreen(game1);
+});
+const name = rules.querySelector(`.rules__input`);
+
+name.addEventListener(`input`, () => {
+  if (name.value !== ``) {
+    submit.disabled = false;
+  } else {
+    submit.disabled = true;
+  }
+});
+
+const backbutton = rules.querySelector(`.back`);
+backbutton.addEventListener(`click`, () => {
+  changeScreen(greeting);
+});
+
 export default rules;
