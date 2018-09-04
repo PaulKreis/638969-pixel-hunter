@@ -2,7 +2,7 @@ import {getElementFromTemplate, changeScreen} from './createdom.js';
 import stats from './stats.js';
 import greeting from './greeting.js';
 
-const template = `<header class="header">
+const header = `<header class="header">
 <button class="back">
   <span class="visually-hidden">Вернуться к началу</span>
   <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
@@ -18,19 +18,30 @@ const template = `<header class="header">
   <img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">
   <img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">
 </div>
-</header>
+</header>`;
+
+const caption = `<p class="game__task">Найдите рисунок среди изображений</p>`;
+
+const option1 = ` <div class="game__option">
+<img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
+</div>`;
+
+const option2 = `<div class="game__option  game__option--selected">
+<img src="http://placehold.it/304x455" alt="Option 2" width="304" height="455">
+</div>`;
+
+const option3 = `<div class="game__option">
+<img src="http://placehold.it/304x455" alt="Option 3" width="304" height="455">
+</div>`;
+
+const template = `
+${header}
 <section class="game">
-<p class="game__task">Найдите рисунок среди изображений</p>
+${caption}
 <form class="game__content  game__content--triple">
-  <div class="game__option">
-    <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
-  </div>
-  <div class="game__option  game__option--selected">
-    <img src="http://placehold.it/304x455" alt="Option 2" width="304" height="455">
-  </div>
-  <div class="game__option">
-    <img src="http://placehold.it/304x455" alt="Option 3" width="304" height="455">
-  </div>
+${option1}
+${option2}
+${option3}
 </form>
 <ul class="stats">
   <li class="stats__result stats__result--wrong"></li>

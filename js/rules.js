@@ -1,8 +1,9 @@
 import {getElementFromTemplate, changeScreen} from './createdom.js';
 import game1 from './game1.js';
 import greeting from './greeting.js';
+import {rulesData} from './data.js';
 
-const template = `<header class="header">
+const header = `<header class="header">
 <button class="back">
   <span class="visually-hidden">Вернуться к началу</span>
   <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
@@ -12,22 +13,24 @@ const template = `<header class="header">
     <use xlink:href="img/sprite.svg#logo-small"></use>
   </svg>
 </button>
-</header>
-<section class="rules">
-<h2 class="rules__title">Правила</h2>
-<ul class="rules__description">
-  <li>Угадай 10 раз для каждого изображения фото
-    <img class="rules__icon" src="img/icon-photo.png" width="32" height="31" alt="Фото"> или рисунок
-    <img class="rules__icon" src="img/icon-paint.png" width="32" height="31" alt="Рисунок"></li>
-  <li>Фотографиями или рисунками могут быть оба изображения.</li>
-  <li>На каждую попытку отводится 30 секунд.</li>
-  <li>Ошибиться можно не более 3 раз.</li>
-</ul>
-<p class="rules__ready">Готовы?</p>
+</header>`;
+
+const rulesTitle = `<h2 class="rules__title">${rulesData.title}</h2>`;
+const rulesDescription = `<ul class="rules__description">
+${[...rulesData.rules].map((rule) =>
+    `<li>${rule}</li>`).join(``)}
+</ul>`;
+const form = `<p class="rules__ready">Готовы?</p>
 <form class="rules__form">
   <input class="rules__input" type="text" placeholder="Ваше Имя">
   <button class="rules__button  continue" type="submit" disabled>Go!</button>
-</form>
+</form>`;
+const template = `
+${header}
+<section class="rules">
+${rulesTitle}
+${rulesDescription}
+${form}
 </section>`;
 
 const rules = getElementFromTemplate(template);

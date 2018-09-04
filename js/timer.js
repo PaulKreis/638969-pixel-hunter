@@ -1,4 +1,4 @@
-//  import {reducelifes} from './checklifes.js';
+//  import {reduceLifes} from './checklifes.js';
 let answerTime = 30;
 export const reduceTimer = () => {
   answerTime -= 1;

@@ -1,4 +1,4 @@
-export const checkscore = (answers, lifes) => {
+export const checkScore = (answers, lifes) => {
   let scores = 0;
   if (answers.length < 10) {
     return -1;

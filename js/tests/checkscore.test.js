@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import {checkscore} from '.././checkscore.js';
+import {checkScore} from '.././checkscore.js';
 describe(`Score checking tests`, () => {
   describe(`Base tests`, () => {
     it(`If answer <10 question return -1`, () => {
@@ -14,7 +14,7 @@ describe(`Score checking tests`, () => {
         {correct: false, time: 10},
         {correct: true, time: 10}
       ];
-      const scores = checkscore(testanswers, 2);
+      const scores = checkScore(testanswers, 2);
       assert.equal(scores, -1);
     });
 
@@ -31,7 +31,7 @@ describe(`Score checking tests`, () => {
         {correct: true, time: 13},
         {correct: true, time: 14}
       ];
-      const scores = checkscore(testanswers, 3);
+      const scores = checkScore(testanswers, 3);
       assert.equal(scores, 1150);
     });
 
@@ -48,7 +48,7 @@ describe(`Score checking tests`, () => {
         {correct: true, time: 2},
         {correct: true, time: 4}
       ];
-      const scores = checkscore(testanswers, 3);
+      const scores = checkScore(testanswers, 3);
       assert.equal(scores, 1650);
     });
   });
