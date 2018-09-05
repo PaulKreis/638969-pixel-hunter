@@ -1,29 +1,13 @@
 import {getElementFromTemplate, changeScreen} from './createdom.js';
 import game2 from './game2.js';
 import greeting from './greeting.js';
-
-const header = `<header class="header">
-<button class="back">
-  <span class="visually-hidden">Вернуться к началу</span>
-  <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
-    <use xlink:href="img/sprite.svg#arrow-left"></use>
-  </svg>
-  <svg class="icon" width="101" height="44" viewBox="0 0 101 44" fill="#000000">
-    <use xlink:href="img/sprite.svg#logo-small"></use>
-  </svg>
-</button>
-<div class="game__timer">NN</div>
-<div class="game__lives">
-  <img src="img/heart__empty.svg" class="game__heart" alt=" Missed Life" width="31" height="27">
-  <img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">
-  <img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">
-</div>
-</header>`;
+import {header} from './header.js';
+import {question} from './data.js';
 
 const caption = `<p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>`;
 
 const option1 = `  <div class="game__option">
-<img src="http://placehold.it/468x458" alt="Option 1" width="468" height="458">
+<img src="${question.question1.option1.src}" alt="${question.question1.option1.alt}" width="${question.question1.option1.width}" height="${question.question1.option1.height}">
 <label class="game__answer game__answer--photo">
   <input class="visually-hidden" name="question1" type="radio" value="photo" data-item="1">
   <span>Фото</span>
@@ -35,7 +19,7 @@ const option1 = `  <div class="game__option">
 </div>`;
 
 const option2 = `<div class="game__option">
-<img src="http://placehold.it/468x458" alt="Option 2" width="468" height="458">
+<img src="${question.question1.option2.src}" alt="${question.question1.option2.alt}" width="${question.question1.option2.width}" height="${question.question1.option2.height}">
 <label class="game__answer  game__answer--photo">
   <input class="visually-hidden" name="question2" type="radio" value="photo" data-item="3">
   <span>Фото</span>
