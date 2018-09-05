@@ -1,5 +1,5 @@
 import {getElementFromTemplate, changeScreen} from './createdom.js';
-import game1 from './game1.js';
+import {renderScreen} from './game.js';
 import greeting from './greeting.js';
 import {rulesData} from './data.js';
 
@@ -37,7 +37,7 @@ const rules = getElementFromTemplate(template);
 
 const submit = rules.querySelector(`.rules__button`);
 submit.addEventListener(`click`, () => {
-  changeScreen(game1);
+  changeScreen(renderScreen(2));
 });
 const name = rules.querySelector(`.rules__input`);
 

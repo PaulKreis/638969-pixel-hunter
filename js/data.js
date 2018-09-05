@@ -17,19 +17,39 @@ export const rulesData = {
   `Ошибиться можно не более 3 раз.`]
 };
 
-export const question = {
-  question1: {
-    option1: {
-      src: `http://placehold.it/468x458`,
-      width: `468`,
-      height: `458`,
-      alt: `Option 1`
-    },
-    option2: {
-      src: `http://placehold.it/468x458`,
-      width: `468`,
-      height: `458`,
-      alt: `Option 2`
-    }
+export const questions = [{
+  type: `two_from_three`,
+  option1: {
+    src: `http://placehold.it/468x458`,
+    width: `468`,
+    height: `458`,
+    alt: `Option 1`
+  },
+  option2: {
+    src: `http://placehold.it/468x458`,
+    width: `468`,
+    height: `458`,
+    alt: `Option 2`
   }
-};
+}, {
+  type: `one_from_three`,
+  option1: {
+    src: `http://placehold.it/304x455`,
+    width: `304`,
+    height: `455`,
+    alt: `Option 1`
+  }}, {
+  type: `three_from_three`,
+  option1: {
+    src: `http://placehold.it/304x455`,
+    width: `304`,
+    height: `455`,
+    alt: `Option 2`
+  },
+  option2: {
+    src: `http://placehold.it/304x455`,
+    width: `304`,
+    height: `455`,
+    alt: `Option 3`
+  }
+}];

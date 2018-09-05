@@ -7,7 +7,7 @@ import {question} from './data.js';
 const caption = `<p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>`;
 
 const option1 = `  <div class="game__option">
-<img src="${question.question1.option1.src}" alt="${question.question1.option1.alt}" width="${question.question1.option1.width}" height="${question.question1.option1.height}">
+<img src="${question[0].option1.src}" alt="${question[0].option1.alt}" width="${question[0].option1.width}" height="${question[0].option1.height}">
 <label class="game__answer game__answer--photo">
   <input class="visually-hidden" name="question1" type="radio" value="photo" data-item="1">
   <span>Фото</span>
@@ -19,7 +19,7 @@ const option1 = `  <div class="game__option">
 </div>`;
 
 const option2 = `<div class="game__option">
-<img src="${question.question1.option2.src}" alt="${question.question1.option2.alt}" width="${question.question1.option2.width}" height="${question.question1.option2.height}">
+<img src="${question[0].option2.src}" alt="${question[0].option2.alt}" width="${question[0].option2.width}" height="${question[0].option2.height}">
 <label class="game__answer  game__answer--photo">
   <input class="visually-hidden" name="question2" type="radio" value="photo" data-item="3">
   <span>Фото</span>
