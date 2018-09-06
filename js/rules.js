@@ -37,7 +37,7 @@ const rules = getElementFromTemplate(template);
 
 const submit = rules.querySelector(`.rules__button`);
 submit.addEventListener(`click`, () => {
-  changeScreen(renderScreen(2));
+  changeScreen(renderScreen(0));
 });
 const name = rules.querySelector(`.rules__input`);
 

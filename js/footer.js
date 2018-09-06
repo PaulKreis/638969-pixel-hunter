@@ -1,4 +1,4 @@
-export const stats = `<ul class="stats">
+export const footerstats = `<ul class="stats">
   <li class="stats__result stats__result--wrong"></li>
   <li class="stats__result stats__result--slow"></li>
   <li class="stats__result stats__result--fast"></li>

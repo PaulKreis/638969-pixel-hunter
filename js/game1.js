@@ -64,7 +64,6 @@ const isAllChecked = () => {
   }
 };
 
-
 radioElements[0].addEventListener(`change`, () => {
   isFirstChecked = true;
   isAllChecked();

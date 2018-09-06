@@ -18,38 +18,179 @@ export const rulesData = {
 };
 
 export const questions = [{
-  type: `two_from_three`,
-  option1: {
-    src: `http://placehold.it/468x458`,
-    width: `468`,
-    height: `458`,
-    alt: `Option 1`
-  },
-  option2: {
-    src: `http://placehold.it/468x458`,
-    width: `468`,
-    height: `458`,
-    alt: `Option 2`
-  }
-}, {
+//  Вопрос 1
   type: `one_from_three`,
   option1: {
-    src: `http://placehold.it/304x455`,
+    src: `https://k42.kn3.net/CF42609C8.jpg`,
     width: `304`,
     height: `455`,
-    alt: `Option 1`
-  }}, {
-  type: `three_from_three`,
+    alt: `option1`,
+    value: `paint`
+  }
+},
+//  Вопрос 2
+{
+  type: `two_from_three`,
   option1: {
-    src: `http://placehold.it/304x455`,
-    width: `304`,
-    height: `455`,
-    alt: `Option 2`
+    src: `https://k42.kn3.net/D2F0370D6.jpg`,
+    width: `468`,
+    height: `458`,
+    alt: `option1`,
+    value: `paint`
   },
   option2: {
-    src: `http://placehold.it/304x455`,
+    src: `http://i.imgur.com/1KegWPz.jpg`,
+    width: `468`,
+    height: `458`,
+    alt: `option2`,
+    value: `photo`
+  }
+},
+//  Вопрос 3
+{
+  type: `three_from_three`,
+  correct: `paint`,
+  option1: {
+    src: `https://i.imgur.com/DiHM5Zb.jpg`,
     width: `304`,
     height: `455`,
-    alt: `Option 3`
+    alt: `photo`
+  },
+  option2: {
+    src: `https://k32.kn3.net/5C7060EC5.jpg`,
+    width: `304`,
+    height: `455`,
+    alt: `photo`
+  },
+  option3: {
+    src: `https://k42.kn3.net/D2F0370D6.jpg`,
+    width: `304`,
+    height: `455`,
+    alt: `paint`
   }
-}];
+},
+//  Вопрос 4
+{
+  type: `two_from_three`,
+  option1: {
+    src: `http://i.imgur.com/1KegWPz.jpg`,
+    width: `468`,
+    height: `458`,
+    alt: `option1`,
+    value: `photo`
+  },
+  option2: {
+    src: `https://k32.kn3.net/5C7060EC5.jpg`,
+    width: `468`,
+    height: `458`,
+    alt: `option2`,
+    value: `paint`
+  }
+},
+//  Вопрос 5
+{
+  type: `three_from_three`,
+  correct: `paint`,
+  option1: {
+    src: `https://k32.kn3.net/5C7060EC5.jpg`,
+    width: `304`,
+    height: `455`,
+    alt: `paint`
+  },
+  option2: {
+    src: `https://k42.kn3.net/D2F0370D6.jpg`,
+    width: `304`,
+    height: `455`,
+    alt: `photo`
+  },
+  option3: {
+    src: `https://i.imgur.com/DiHM5Zb.jpg`,
+    width: `304`,
+    height: `455`,
+    alt: `photo`
+  }
+}, {
+  //  Вопрос 6
+  type: `one_from_three`,
+  option1: {
+    src: `https://k42.kn3.net/D2F0370D6.jpg`,
+    width: `304`,
+    height: `455`,
+    alt: `option1`,
+    value: `paint`
+  }
+},
+//  Вопрос 7
+{
+  type: `two_from_three`,
+  option1: {
+    src: `http://i.imgur.com/DKR1HtB.jpg`,
+    width: `468`,
+    height: `458`,
+    alt: `option1`,
+    value: `photo`
+  },
+  option2: {
+    src: `https://k32.kn3.net/5C7060EC5.jpg`,
+    width: `468`,
+    height: `458`,
+    alt: `option2`,
+    value: `paint`
+  }
+},
+//  Вопрос 8
+{
+  type: `three_from_three`,
+  correct: `paint`,
+  option1: {
+    src: `https://k42.kn3.net/CF42609C8.jpg`,
+    width: `304`,
+    height: `455`,
+    alt: `option2`,
+    value: `paint`
+  },
+  option2: {
+    src: `http://i.imgur.com/1KegWPz.jpg`,
+    width: `304`,
+    height: `455`,
+    alt: `option3`,
+    value: `photo`
+  },
+  option3: {
+    src: `http://i.imgur.com/DKR1HtB.jpg`,
+    width: `304`,
+    height: `455`,
+    alt: `option3`,
+    value: `paint`
+  }
+},
+{
+  //  Вопрос 9
+  type: `one_from_three`,
+  option1: {
+    src: `https://k42.kn3.net/D2F0370D6.jpg`,
+    width: `304`,
+    height: `455`,
+    alt: `option1`,
+    value: `paint`
+  }
+},
+//  Вопрос 10
+{
+  type: `two_from_three`,
+  option1: {
+    src: `https://i.imgur.com/DiHM5Zb.jpg`,
+    width: `468`,
+    height: `458`,
+    alt: `option1`,
+    value: `photo`
+  },
+  option2: {
+    src: `https://k42.kn3.net/D2F0370D6.jpg`,
+    width: `468`,
+    height: `458`,
+    alt: `option2`,
+    value: `paint`
+  }
+},
+];

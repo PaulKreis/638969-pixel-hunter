@@ -1,7 +1,8 @@
 import {getElementFromTemplate, changeScreen} from './createdom.js';
 import greeting from './greeting.js';
 
-const header = `<header class="header">
+const statistics = (answers) => {
+  const header = `<header class="header">
 <button class="back">
   <span class="visually-hidden">Вернуться к началу</span>
   <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
@@ -13,23 +14,23 @@ const header = `<header class="header">
 </button>
 </header>`;
 
-const caption = `<h2 class="result__title">Победа!</h2>`;
+  const caption = `<h2 class="result__title">Победа!</h2>`;
 
-const result1 = `<table class="result__table">
+  const result1 = `<table class="result__table">
 <tr>
   <td class="result__number">1.</td>
   <td colspan="2">
     <ul class="stats">
-      <li class="stats__result stats__result--wrong"></li>
-      <li class="stats__result stats__result--slow"></li>
-      <li class="stats__result stats__result--fast"></li>
-      <li class="stats__result stats__result--correct"></li>
-      <li class="stats__result stats__result--wrong"></li>
-      <li class="stats__result stats__result--unknown"></li>
-      <li class="stats__result stats__result--slow"></li>
-      <li class="stats__result stats__result--unknown"></li>
-      <li class="stats__result stats__result--fast"></li>
-      <li class="stats__result stats__result--unknown"></li>
+      <li class="stats__result stats__result--${answers[0]}"></li>
+      <li class="stats__result stats__result--${answers[1]}"></li>
+      <li class="stats__result stats__result--${answers[2]}"></li>
+      <li class="stats__result stats__result--${answers[3]}"></li>
+      <li class="stats__result stats__result--${answers[4]}"></li>
+      <li class="stats__result stats__result--${answers[5]}"></li>
+      <li class="stats__result stats__result--${answers[6]}"></li>
+      <li class="stats__result stats__result--${answers[7]}"></li>
+      <li class="stats__result stats__result--${answers[8]}"></li>
+      <li class="stats__result stats__result--${answers[9]}"></li>
     </ul>
   </td>
   <td class="result__points">× 100</td>
@@ -61,7 +62,7 @@ const result1 = `<table class="result__table">
 </tr>
 </table>`;
 
-const result2 = `<table class="result__table">
+  const result2 = `<table class="result__table">
 <tr>
   <td class="result__number">2.</td>
   <td>
@@ -83,7 +84,7 @@ const result2 = `<table class="result__table">
 </tr>
 </table>`;
 
-const result3 = `<table class="result__table">
+  const result3 = `<table class="result__table">
 <tr>
   <td class="result__number">3.</td>
   <td colspan="2">
@@ -115,7 +116,7 @@ const result3 = `<table class="result__table">
 </tr>
 </table>`;
 
-const template = `
+  const template = `
 ${header}
 <section class="result">
 ${caption}
@@ -123,11 +124,15 @@ ${result1}
 ${result2}
 ${result3}
 </section>`;
-const stats = getElementFromTemplate(template);
+  return template;
+};
+export default statistics;
 
-const backbutton = stats.querySelector(`.back`);
-backbutton.addEventListener(`click`, () => {
-  changeScreen(greeting);
-});
-
-export default stats;
+export const renderStatistics = (answers) => {
+  let stats = getElementFromTemplate(statistics(answers));
+  const backbutton = stats.querySelector(`.back`);
+  backbutton.addEventListener(`click`, () => {
+    changeScreen(greeting);
+  });
+  return stats;
+};
