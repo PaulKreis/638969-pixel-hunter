@@ -1,4 +1,4 @@
-import {getElementFromTemplate, changeScreen} from './createdom.js';
+import {getElementFromTemplate, changeScreen} from '../utils/createdom.js';
 import greeting from './greeting.js';
 
 const template = `

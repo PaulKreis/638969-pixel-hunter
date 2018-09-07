@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import {reduceLifes, returnLifes} from '.././checklifes.js';
+import {reduceLifes, returnLifes} from '../utils/checklifes.js';
 describe(`Score checking tests`, () => {
   describe(`Base tests`, () => {
     it(`Return 2 lifes on 1 mistake`, () => {

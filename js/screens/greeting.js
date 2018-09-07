@@ -1,6 +1,6 @@
-import {getElementFromTemplate, changeScreen} from './createdom.js';
+import {getElementFromTemplate, changeScreen} from '../utils/createdom.js';
 import rules from './rules.js';
-import {greetingData} from './data.js';
+import {greetingData} from '../data/data.js';
 
 const logo = `<img class="greeting__logo" src="img/logo_ph-big.svg" width="201" height="89" alt="Pixel Hunter">`;
 const asterisk = `<div class="greeting__asterisk asterisk"><span class="visually-hidden">Я просто красивая звёздочка</span>*</div>`;

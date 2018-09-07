@@ -1,7 +1,7 @@
-import {getElementFromTemplate, changeScreen} from './createdom.js';
+import {getElementFromTemplate, changeScreen} from '../utils/createdom.js';
 import {renderScreen} from './game.js';
 import greeting from './greeting.js';
-import {rulesData} from './data.js';
+import {rulesData} from '../data/data.js';
 
 const header = `<header class="header">
 <button class="back">

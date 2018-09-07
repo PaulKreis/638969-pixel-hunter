@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import {checkScore} from '.././checkscore.js';
+import {checkScore} from '../utils/checkscore.js';
 describe(`Score checking tests`, () => {
   describe(`Base tests`, () => {
     it(`If answer <10 question return -1`, () => {
