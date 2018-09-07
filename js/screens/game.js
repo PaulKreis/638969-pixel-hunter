@@ -1,8 +1,8 @@
-import {getElementFromTemplate, changeScreen} from './createdom.js';
+import {getElementFromTemplate, changeScreen} from '../utils/createdom.js';
 import {header} from './header.js';
 import {footerstats} from './footer.js';
 import {renderStatistics} from './stats.js';
-import {questions} from './data.js';
+import {questions} from '../data/data.js';
 
 const caption = `<p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>`;
 let currentScreen = 0;

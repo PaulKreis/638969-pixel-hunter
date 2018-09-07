@@ -1,4 +1,4 @@
-import {changeScreen} from './createdom.js';
-import intro from './intro.js';
+import {changeScreen} from './utils/createdom.js';
+import intro from './screens/intro.js';
 
 changeScreen(intro);

@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import {reduceTimer, initTimer} from '.././timer.js';
+import {reduceTimer, initTimer} from '../utils/timer.js';
 
 describe(`Timer tests`, () => {
   describe(`Base tests`, () => {

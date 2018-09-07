@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import {changeLevel, INITIAL_GAME} from '.././changelevels.js';
+import {changeLevel, INITIAL_GAME} from '../utils/changelevels.js';
 
 describe(`Check level changer`, () => {
   describe(`Base tests`, () => {
