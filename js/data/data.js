@@ -34,14 +34,14 @@ export const questions = [{
   option1: {
     src: `https://k42.kn3.net/D2F0370D6.jpg`,
     width: `468`,
-    height: `458`,
+    height: `354`,
     alt: `option1`,
     value: `paint`
   },
   option2: {
-    src: `http://i.imgur.com/1KegWPz.jpg`,
-    width: `468`,
-    height: `458`,
+    src: `https://i.imgur.com/DiHM5Zb.jpg`,
+    width: `646`,
+    height: `953`,
     alt: `option2`,
     value: `photo`
   }
@@ -52,20 +52,20 @@ export const questions = [{
   correct: `paint`,
   option1: {
     src: `https://i.imgur.com/DiHM5Zb.jpg`,
-    width: `304`,
-    height: `455`,
+    width: `646`,
+    height: `953`,
     alt: `photo`
   },
   option2: {
     src: `https://k32.kn3.net/5C7060EC5.jpg`,
-    width: `304`,
-    height: `455`,
+    width: `1200`,
+    height: `900`,
     alt: `photo`
   },
   option3: {
     src: `https://k42.kn3.net/D2F0370D6.jpg`,
-    width: `304`,
-    height: `455`,
+    width: `658`,
+    height: `354`,
     alt: `paint`
   }
 },
@@ -73,16 +73,16 @@ export const questions = [{
 {
   type: `two_from_three`,
   option1: {
-    src: `http://i.imgur.com/1KegWPz.jpg`,
+    src: `https://k42.kn3.net/D2F0370D6.jpg`,
     width: `468`,
-    height: `458`,
+    height: `354`,
     alt: `option1`,
     value: `photo`
   },
   option2: {
     src: `https://k32.kn3.net/5C7060EC5.jpg`,
-    width: `468`,
-    height: `458`,
+    width: `1200`,
+    height: `900`,
     alt: `option2`,
     value: `paint`
   }

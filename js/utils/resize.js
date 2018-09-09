@@ -1,4 +1,4 @@
-export const resize = (frame, given) => {
+const resize = (frame, given) => {
   let newSize = 0;
   if (frame.width === frame.height) {
     if (given.width > given.height) {
@@ -48,3 +48,4 @@ export const resize = (frame, given) => {
   }
   return newSize;
 };
+export default resize;
