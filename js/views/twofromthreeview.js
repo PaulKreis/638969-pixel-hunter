@@ -1,7 +1,7 @@
-import {header} from '../screens/header.js';
-import {footerstats} from '../screens/footer.js';
 import AbstractView from '../components/abstractview.js';
 import resize from '../utils/resize.js';
+import FooterView from '../views/footerview.js';
+import HeaderView from '../views/headerview.js';
 
 const FRAME_SIZE = {width: 468, height: 458};
 
@@ -11,6 +11,8 @@ export default class TwoFromThreeView extends AbstractView {
     this.question = question;
   }
   get template() {
+    const footerView = new FooterView();
+    const headerView = new HeaderView();
     const caption = `<p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>`;
     let formClass = `game__content`;
     let correctSize = resize(FRAME_SIZE, {width: this.question.option1.width, height: this.question.option1.height});
@@ -40,14 +42,14 @@ export default class TwoFromThreeView extends AbstractView {
     </div>`;
 
     return `
-      ${header}
+    ${headerView.template}
       <section class="game">
         ${caption}
         <form class="${formClass}">
           ${option1}
           ${option2}
         </form>
-        ${footerstats}
+        ${footerView.template}
       </section>`;
   }
 

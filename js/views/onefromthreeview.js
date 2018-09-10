@@ -1,8 +1,7 @@
-import {header} from '../screens/header.js';
-import {footerstats} from '../screens/footer.js';
 import AbstractView from '../components/abstractview.js';
 import resize from '../utils/resize.js';
-
+import FooterView from '../views/footerview.js';
+import HeaderView from '../views/headerview.js';
 const FRAME_SIZE = {width: 705, height: 455};
 
 export default class OneFromThreeView extends AbstractView {
@@ -10,8 +9,9 @@ export default class OneFromThreeView extends AbstractView {
     super();
     this.question = question;
   }
-
   get template() {
+    const footerView = new FooterView();
+    const headerView = new HeaderView();
     const correctSize = resize(FRAME_SIZE, {width: this.question.option1.width, height: this.question.option1.height});
     const caption = `<p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>`;
     let formClass = `game__content game__content--wide`;
@@ -28,13 +28,13 @@ export default class OneFromThreeView extends AbstractView {
       </div>`;
 
     return `
-      ${header}
+    ${headerView.template}
       <section class="game">
         ${caption}
         <form class="${formClass}">
           ${option1}
         </form>
-        ${footerstats}
+        ${footerView.template}
       </section>`;
   }
 
