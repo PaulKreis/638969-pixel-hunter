@@ -22,8 +22,8 @@ export const questions = [{
   type: `one_from_three`,
   option1: {
     src: `https://k42.kn3.net/CF42609C8.jpg`,
-    width: `304`,
-    height: `455`,
+    width: `600`,
+    height: `831`,
     alt: `option1`,
     value: `paint`
   }
@@ -34,14 +34,14 @@ export const questions = [{
   option1: {
     src: `https://k42.kn3.net/D2F0370D6.jpg`,
     width: `468`,
-    height: `458`,
+    height: `354`,
     alt: `option1`,
     value: `paint`
   },
   option2: {
-    src: `http://i.imgur.com/1KegWPz.jpg`,
-    width: `468`,
-    height: `458`,
+    src: `https://k32.kn3.net/5C7060EC5.jpg`,
+    width: `1200`,
+    height: `900`,
     alt: `option2`,
     value: `photo`
   }
@@ -52,20 +52,20 @@ export const questions = [{
   correct: `paint`,
   option1: {
     src: `https://i.imgur.com/DiHM5Zb.jpg`,
-    width: `304`,
-    height: `455`,
+    width: `1264`,
+    height: `1864`,
     alt: `photo`
   },
   option2: {
     src: `https://k32.kn3.net/5C7060EC5.jpg`,
-    width: `304`,
-    height: `455`,
+    width: `1200`,
+    height: `900`,
     alt: `photo`
   },
   option3: {
     src: `https://k42.kn3.net/D2F0370D6.jpg`,
-    width: `304`,
-    height: `455`,
+    width: `468`,
+    height: `354`,
     alt: `paint`
   }
 },
@@ -73,16 +73,16 @@ export const questions = [{
 {
   type: `two_from_three`,
   option1: {
-    src: `http://i.imgur.com/1KegWPz.jpg`,
+    src: `https://k42.kn3.net/D2F0370D6.jpg`,
     width: `468`,
-    height: `458`,
+    height: `354`,
     alt: `option1`,
     value: `photo`
   },
   option2: {
     src: `https://k32.kn3.net/5C7060EC5.jpg`,
-    width: `468`,
-    height: `458`,
+    width: `1200`,
+    height: `900`,
     alt: `option2`,
     value: `paint`
   }
@@ -93,20 +93,20 @@ export const questions = [{
   correct: `paint`,
   option1: {
     src: `https://k32.kn3.net/5C7060EC5.jpg`,
-    width: `304`,
-    height: `455`,
+    width: `1200`,
+    height: `900`,
     alt: `paint`
   },
   option2: {
     src: `https://k42.kn3.net/D2F0370D6.jpg`,
-    width: `304`,
-    height: `455`,
+    width: `468`,
+    height: `354`,
     alt: `photo`
   },
   option3: {
     src: `https://i.imgur.com/DiHM5Zb.jpg`,
-    width: `304`,
-    height: `455`,
+    width: `1264`,
+    height: `1864`,
     alt: `photo`
   }
 }, {
@@ -114,8 +114,8 @@ export const questions = [{
   type: `one_from_three`,
   option1: {
     src: `https://k42.kn3.net/D2F0370D6.jpg`,
-    width: `304`,
-    height: `455`,
+    width: `468`,
+    height: `354`,
     alt: `option1`,
     value: `paint`
   }
@@ -125,15 +125,15 @@ export const questions = [{
   type: `two_from_three`,
   option1: {
     src: `http://i.imgur.com/DKR1HtB.jpg`,
-    width: `468`,
-    height: `458`,
+    width: `1120`,
+    height: `2965`,
     alt: `option1`,
     value: `photo`
   },
   option2: {
     src: `https://k32.kn3.net/5C7060EC5.jpg`,
-    width: `468`,
-    height: `458`,
+    width: `1200`,
+    height: `900`,
     alt: `option2`,
     value: `paint`
   }
@@ -144,22 +144,22 @@ export const questions = [{
   correct: `paint`,
   option1: {
     src: `https://k42.kn3.net/CF42609C8.jpg`,
-    width: `304`,
-    height: `455`,
+    width: `600`,
+    height: `831`,
     alt: `option2`,
     value: `paint`
   },
   option2: {
     src: `http://i.imgur.com/1KegWPz.jpg`,
-    width: `304`,
-    height: `455`,
+    width: `1080`,
+    height: `720`,
     alt: `option3`,
     value: `photo`
   },
   option3: {
     src: `http://i.imgur.com/DKR1HtB.jpg`,
-    width: `304`,
-    height: `455`,
+    width: `1120`,
+    height: `2965`,
     alt: `option3`,
     value: `paint`
   }
@@ -169,8 +169,8 @@ export const questions = [{
   type: `one_from_three`,
   option1: {
     src: `https://k42.kn3.net/D2F0370D6.jpg`,
-    width: `304`,
-    height: `455`,
+    width: `468`,
+    height: `354`,
     alt: `option1`,
     value: `paint`
   }
@@ -180,15 +180,15 @@ export const questions = [{
   type: `two_from_three`,
   option1: {
     src: `https://i.imgur.com/DiHM5Zb.jpg`,
-    width: `468`,
-    height: `458`,
+    width: `1264`,
+    height: `1864`,
     alt: `option1`,
     value: `photo`
   },
   option2: {
     src: `https://k42.kn3.net/D2F0370D6.jpg`,
     width: `468`,
-    height: `458`,
+    height: `354`,
     alt: `option2`,
     value: `paint`
   }
