@@ -11,15 +11,8 @@ const MAIN = document.querySelector(`#main`);
 const NUMBER_OF_SCREENS = 10;
 
 //  И кое-какие переменные (потом надо будет все это пихнуть в модель)
-let state = {
-  lifes: [`full`, `full`, `full`],
-  time: 0,
-  answers: [`unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`]
-};
 let levelView = ``;
-let timer = ``;
-let time = 0;
-const gameContainerElement = getElementFromTemplate();
+const root = getElementFromTemplate();
 const headerElement = getElementFromTemplate();
 const levelElement = getElementFromTemplate();
 const footerElement = getElementFromTemplate();
@@ -27,48 +20,41 @@ const footerElement = getElementFromTemplate();
 
 
 //  Функции обновления экранов
-const updateView = (container, view) => {
-  container.innerHTML = ``;
-  container.appendChild(view.element);
-};
-
-const updateHeader = () => {
-  updateView(headerElement, new HeaderView(time, state.lifes));
-};
-
-const updateFooter = (ans) => {
-  updateView(footerElement, new FooterView(ans));
-};
-
-const updateScreen = (element) => {
-  updateHeader(state.lifes);
-  updateView(levelElement, element);
-  updateFooter(state.answers);
-};
-
-const changeView = (element) => {
-  MAIN.innerHTML = ``;
-  const headerView = new HeaderView([`full`, `full`, `empty`]);
-  MAIN.appendChild(headerView.element);
-  MAIN.appendChild(element);
-  const footerView = new FooterView(state.answers);
-  MAIN.appendChild(footerView.element);
-};
-
 
 class GameScreen {
-  constructor(data) {
-    // this.model = model;
-    // this.header = new HeaderView(this.model.state);
-    // this.content = new LevelView(this.model.getCurrentLevel());
-
-    // this.root = document.createElement(`div`);
-    // this.root.appendChild(this.header.element);
-    // this.root.appendChild(this.content.element);
-    // this.root.appendChild(new FooterView().element);
-    this.data = data;
+  constructor(model) {
+    this.model = model;
     this._interval = null;
     this.currentScreen = -1;
+    this._interval = null;
+  }
+
+  updateHeader() {
+    this.updateView(headerElement, new HeaderView(this.model.time, this.model.lifes));
+  }
+
+  updateView(container, view) {
+    container.innerHTML = ``;
+    container.appendChild(view.element);
+  }
+
+  updateFooter(ans) {
+    this.updateView(footerElement, new FooterView(ans));
+  }
+
+  updateScreen(element) {
+    this.updateHeader(this.model.returnLifes);
+    this.updateView(levelElement, element);
+    this.updateFooter(this.model.answers);
+  }
+
+  changeView(element) {
+    MAIN.innerHTML = ``;
+    const headerView = new HeaderView([`full`, `full`, `empty`]);
+    MAIN.appendChild(headerView.element);
+    MAIN.appendChild(element);
+    const footerView = new FooterView(this.model.answers);
+    MAIN.appendChild(footerView.element);
   }
 
   get element() {
@@ -81,38 +67,42 @@ class GameScreen {
 
   startTimer() {
     this._interval = setInterval(() => {
-      time += 1;
-      updateHeader();
+      this.model.tick();
+      if (this.model.checkTime()) {
+        this.checkMistakes(`wrong`);
+      }
+      this.updateHeader();
     }, 1000);
   }
 
   stopTimer() {
-    clearTimeout(timer);
+    clearTimeout(this._interval);
+    this.model.resetTime();
   }
 
-  showOneFromThree(question) {
-    levelView = new OneFromThreeView(this.data[question]);
+  showOneFromThree() {
+    levelView = new OneFromThreeView(this.model.getCurrentQuestion());
     levelView.onAnswer = (value) => {
-      state.answers[this.currentScreen] = value === this.data[this.currentScreen].option1.value ? `correct` : `wrong`;
-      this.checkMistakes();
+      const answer = (value === this.model.questions[this.currentScreen].option1.value ? `correct` : `wrong`);
+      this.checkMistakes(answer);
     };
     return (levelView);
   }
 
-  showTwoFromThree(question) {
-    levelView = new TwoFromThreeView(this.data[question]);
+  showTwoFromThree() {
+    levelView = new TwoFromThreeView(this.model.getCurrentQuestion());
     levelView.onAnswer = (value1, value2) => {
-      state.answers[this.currentScreen] = value1 === this.data[this.currentScreen].option1.value && value2 === this.data[this.currentScreen].option2.value ? `correct` : `wrong`;
-      this.checkMistakes();
+      const answer = (value1 === this.model.questions[this.currentScreen].option1.value && value2 === this.model.questions[this.currentScreen].option2.value ? `correct` : `wrong`);
+      this.checkMistakes(answer);
     };
     return (levelView);
   }
 
-  showThreeFromThree(question) {
-    levelView = new ThreeFromThreeView(this.data[question]);
+  showThreeFromThree() {
+    levelView = new ThreeFromThreeView(this.model.getCurrentQuestion());
     levelView.onAnswer = (value) => {
-      state.answers[this.currentScreen] = value === this.data[this.currentScreen].correct ? `correct` : `wrong`;
-      this.checkMistakes();
+      const answer = (value === this.model.questions[this.currentScreen].correct ? `correct` : `wrong`);
+      this.checkMistakes(answer);
     };
     return (levelView);
   }
@@ -120,45 +110,50 @@ class GameScreen {
   changeScreens() {
     this.currentScreen += 1;
     if (this.currentScreen < NUMBER_OF_SCREENS) {
-      switch (this.data[this.currentScreen].type) {
+      switch (this.model.returnQuestionType()) {
         case `one_from_three`:
-          updateScreen(this.showOneFromThree(this.currentScreen));
+          this.updateScreen(this.showOneFromThree(this.currentScreen));
           break;
         case `two_from_three`:
-          updateScreen(this.showTwoFromThree(this.currentScreen));
+          this.updateScreen(this.showTwoFromThree(this.currentScreen));
           break;
         case `three_from_three`:
-          updateScreen(this.showThreeFromThree(this.currentScreen));
+          this.updateScreen(this.showThreeFromThree(this.currentScreen));
           break;
       }
     } else {
-      changeView(stats(state.answers));
+      this.changeView(stats(this.model.answers));
     }
   }
 
   startGame() {
     // Добвляю в контенер заготовки
-    gameContainerElement.appendChild(headerElement);
-    gameContainerElement.appendChild(levelElement);
-    gameContainerElement.appendChild(footerElement);
+    root.innerHTML = ``;
+    root.appendChild(headerElement);
+    root.appendChild(levelElement);
+    root.appendChild(footerElement);
     MAIN.innerHTML = ``;
-    MAIN.appendChild(gameContainerElement);
+    MAIN.appendChild(root);
     this.changeScreens();
     this.startTimer();
   }
-  checkMistakes() {
-    let mistakes = 0;
-    state.answers.forEach(function (answer) {
-      if (answer === `wrong`) {
-        state.lifes[mistakes] = `empty`;
-        mistakes += 1;
-      }
-    });
-    if (mistakes === 3) {
-      changeScreen(stats(state.answers));
+
+  checkMistakes(answer) {
+    this.model.addAnswer(answer);
+    if (answer === `wrong`) {
+      this.model.reduceLifes();
+    }
+    if (this.model.returnMistakes() === 3) {
+      changeScreen(stats(this.model.answers));
     } else {
+      this.model.nextLevel();
+
+      this.stopTimer();
+      this.model.resetTime();
+      this.startTimer();
       this.changeScreens();
     }
   }
 }
+
 export default GameScreen;

@@ -3,6 +3,7 @@ import GreetingView from './views/greetingview';
 import RulesView from './views/rulesview.js';
 import * as Data from './data/data.js';
 import GameScreen from './game.js';
+import GameModel from './model/gamemodel.js';
 
 const MAIN = document.querySelector(`#main`);
 
@@ -37,7 +38,8 @@ export default class Router {
   }
 
   static showGame() {
-    const gameScreen = new GameScreen(Data.questions);
+    const gameModel = new GameModel(Data.questions);
+    const gameScreen = new GameScreen(gameModel);
     gameScreen.startGame();
   }
 }
