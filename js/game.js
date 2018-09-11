@@ -30,7 +30,8 @@ class GameScreen {
   }
 
   updateHeader() {
-    this.updateView(headerElement, new HeaderView(this.model.time, this.model.lifes));
+    const state = this.model.getCurrentState();
+    this.updateView(headerElement, new HeaderView(state.time, state.lifes));
   }
 
   updateView(container, view) {
@@ -43,9 +44,9 @@ class GameScreen {
   }
 
   updateScreen(element) {
-    this.updateHeader(this.model.returnLifes);
+    this.updateHeader(this.model.getCurrentState().lifes);
     this.updateView(levelElement, element);
-    this.updateFooter(this.model.answers);
+    this.updateFooter(this.model.state.answers);
   }
 
   changeView(element) {
@@ -53,7 +54,7 @@ class GameScreen {
     const headerView = new HeaderView([`full`, `full`, `empty`]);
     MAIN.appendChild(headerView.element);
     MAIN.appendChild(element);
-    const footerView = new FooterView(this.model.answers);
+    const footerView = new FooterView(this.model.state.answers);
     MAIN.appendChild(footerView.element);
   }
 
@@ -83,7 +84,7 @@ class GameScreen {
   showOneFromThree() {
     levelView = new OneFromThreeView(this.model.getCurrentQuestion());
     levelView.onAnswer = (value) => {
-      const answer = (value === this.model.questions[this.currentScreen].option1.value ? `correct` : `wrong`);
+      const answer = (value === this.model.questions[this.model.getCurrentState().currentQuestion].option1.value ? `correct` : `wrong`);
       this.checkMistakes(answer);
     };
     return (levelView);
@@ -112,17 +113,17 @@ class GameScreen {
     if (this.currentScreen < NUMBER_OF_SCREENS) {
       switch (this.model.returnQuestionType()) {
         case `one_from_three`:
-          this.updateScreen(this.showOneFromThree(this.currentScreen));
+          this.updateScreen(this.showOneFromThree());
           break;
         case `two_from_three`:
-          this.updateScreen(this.showTwoFromThree(this.currentScreen));
+          this.updateScreen(this.showTwoFromThree());
           break;
         case `three_from_three`:
           this.updateScreen(this.showThreeFromThree(this.currentScreen));
           break;
       }
     } else {
-      this.changeView(stats(this.model.answers));
+      this.changeView(stats(this.model.state.answers));
     }
   }
 
@@ -139,15 +140,18 @@ class GameScreen {
   }
 
   checkMistakes(answer) {
-    this.model.addAnswer(answer);
     if (answer === `wrong`) {
       this.model.reduceLifes();
+    } else if (this.model.getCurrentState().time >= 20) {
+      answer = `fast`;
+    } else if (this.model.getCurrentState().time <= 10) {
+      answer = `slow`;
     }
-    if (this.model.returnMistakes() === 3) {
-      changeScreen(stats(this.model.answers));
+    this.model.addAnswer(answer);
+    if (this.model.getCurrentState().mistakes === 3) {
+      changeScreen(stats(this.model.state.answers));
     } else {
       this.model.nextLevel();
-
       this.stopTimer();
       this.model.resetTime();
       this.startTimer();

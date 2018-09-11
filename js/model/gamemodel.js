@@ -1,58 +1,50 @@
 class GameModel {
   constructor(questions) {
     this.questions = questions;
-    this.mistakes = 0;
-    this.answers = [`unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`];
-    this.currentQuestion = 0;
-    this.lifes = [`full`, `full`, `full`];
-    this.time = 30;
+    this.state = {
+      mistakes: 0,
+      answers: [`unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`],
+      currentQuestion: 0,
+      lifes: [`full`, `full`, `full`],
+      time: 30};
   }
 
   //  Предоставить данные для следующего уровня / нужного экрана
   getCurrentQuestion() {
-    return this.questions[this.currentQuestion];
-  }
-
-  getAnswers() {
-    return this.answers;
-  }
-
-  returnLife() {
-    return this.lifes;
-  }
-
-  tick() {
-    this.time -= 1;
-  }
-
-  resetTime() {
-    this.time = 30;
-  }
-
-  checkTime() {
-    return this.time === 0;
-  }
-
-  returnMistakes() {
-    return this.mistakes;
+    return this.questions[this.state.currentQuestion];
   }
 
   returnQuestionType() {
-    return this.questions[this.currentQuestion].type;
+    return this.questions[this.state.currentQuestion].type;
+  }
+
+  getCurrentState() {
+    return this.state;
+  }
+
+  tick() {
+    this.state.time -= 1;
+  }
+
+  resetTime() {
+    this.state.time = 30;
+  }
+
+  checkTime() {
+    return this.state.time === 0;
   }
 
   nextLevel() {
-    this.currentQuestion += 1;
+    this.state.currentQuestion += 1;
   }
 
   addAnswer(answer) {
-    this.answers[this.currentQuestion] = answer;
+    this.state.answers[this.state.currentQuestion] = answer;
   }
 
   reduceLifes() {
-    this.lifes[this.mistakes] = `empty`;
-    this.returnLife();
-    this.mistakes += 1;
+    this.state.lifes[this.state.mistakes] = `empty`;
+    this.state.mistakes += 1;
   }
 //  Управлять количеством жизней
 //
