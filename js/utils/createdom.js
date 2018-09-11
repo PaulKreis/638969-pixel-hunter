@@ -1,6 +1,6 @@
 export const getElementFromTemplate = (template) => {
   const wrapper = document.createElement(`div`);
-  wrapper.innerHTML = template.trim();
+  wrapper.innerHTML = template;
   return wrapper;
 };
 

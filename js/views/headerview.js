@@ -1,8 +1,10 @@
 import AbstractView from '../components/abstractview.js';
 
 export default class HeaderView extends AbstractView {
-  constructor() {
+  constructor(lifes) {
     super();
+    this.lifes = lifes;
+
   }
   get template() {
     return `<header class="header">
@@ -17,11 +19,12 @@ export default class HeaderView extends AbstractView {
 </button>
 <div class="game__timer">NN</div>
 <div class="game__lives">
-  <img src="img/heart__empty.svg" class="game__heart" alt=" Missed Life" width="31" height="27">
-  <img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">
-  <img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">
+  <img src="img/heart__${this.lifes[0]}.svg" class="game__heart" alt=" Missed Life" width="31" height="27">
+  <img src="img/heart__${this.lifes[1]}.svg" class="game__heart" alt="Life" width="31" height="27">
+  <img src="img/heart__${this.lifes[2]}.svg" class="game__heart" alt="Life" width="31" height="27">
 </div>
-</header>`;
+</header>
+`;
   }
 
   onAnswer() { }
