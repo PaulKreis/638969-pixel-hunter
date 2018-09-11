@@ -32,8 +32,8 @@ const updateView = (container, view) => {
   container.appendChild(view.element);
 };
 
-const updateHeader = (lif) => {
-  updateView(headerElement, new HeaderView(lif));
+const updateHeader = () => {
+  updateView(headerElement, new HeaderView(time, state.lifes));
 };
 
 const updateFooter = (ans) => {
@@ -79,26 +79,10 @@ class GameScreen {
     clearInterval(this._interval);
   }
 
-  startGame() {
-    this.changeLevel();
-
-    this._interval = setInterval(() => {
-      this.model.tick();
-      this.updateHeader();
-    }, 1000);
-  }
-  tick() {
-    time += 1;
-    this.updateHeader(time);
-  }
-
-  updateHeader(times) {
-    updateView(headerElement, new HeaderView(times, state.lifes));
-  }
   startTimer() {
-    timer = setTimeout(() => {
-      this.tick();
-      this.startTimer();
+    this._interval = setInterval(() => {
+      time += 1;
+      updateHeader();
     }, 1000);
   }
 
@@ -160,6 +144,7 @@ class GameScreen {
     MAIN.innerHTML = ``;
     MAIN.appendChild(gameContainerElement);
     this.changeScreens();
+    this.startTimer();
   }
   checkMistakes() {
     let mistakes = 0;
@@ -170,7 +155,7 @@ class GameScreen {
       }
     });
     if (mistakes === 3) {
-      changeView(stats(state.answers));
+      changeScreen(stats(state.answers));
     } else {
       this.changeScreens();
     }
