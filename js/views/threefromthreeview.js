@@ -9,20 +9,20 @@ export default class ThreeFromThreeView extends AbstractView {
     this.question = question;
   }
   get template() {
-    let correctSize1 = resize(FRAME_SIZE, {width: this.question.option1.width, height: this.question.option1.height});
-    let correctSize2 = resize(FRAME_SIZE, {width: this.question.option2.width, height: this.question.option2.height});
-    let correctSize3 = resize(FRAME_SIZE, {width: this.question.option3.width, height: this.question.option3.height});
+    let correctSize1 = resize(FRAME_SIZE, {width: this.question.answers[0].image.width, height: this.question.answers[0].image.height});
+    let correctSize2 = resize(FRAME_SIZE, {width: this.question.answers[1].image.width, height: this.question.answers[1].image.height});
+    let correctSize3 = resize(FRAME_SIZE, {width: this.question.answers[2].image.width, height: this.question.answers[2].image.height});
 
     const caption = `<p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>`;
     const formClass = `game__content  game__content--triple`;
-    const option1 = `<div class="game__option" data-item="${this.question.option1.alt}">
-      <img src="${this.question.option1.src}" width="${correctSize1.width}" height="${correctSize1.height}">
+    const option1 = `<div class="game__option" data-item="${this.question.answers[0].type}">
+      <img src="${this.question.answers[0].image.url}" width="${correctSize1.width}" height="${correctSize1.height}">
       </div>`;
-    const option2 = `<div class="game__option" data-item="${this.question.option2.alt}">
-      <img src="${this.question.option2.src}" width="${correctSize2.width}" height="${correctSize2.height}">
+    const option2 = `<div class="game__option" data-item="${this.question.answers[1].type}">
+      <img src="${this.question.answers[1].image.url}" width="${correctSize2.width}" height="${correctSize2.height}">
       </div>`;
-    const option3 = `<div class="game__option" data-item="${this.question.option3.alt}">
-      <img src="${this.question.option3.src}" width="${correctSize3.width}" height="${correctSize3.height}">
+    const option3 = `<div class="game__option" data-item="${this.question.answers[2].type}">
+      <img src="${this.question.answers[2].image.url}" width="${correctSize3.width}" height="${correctSize3.height}">
       </div>`;
 
 

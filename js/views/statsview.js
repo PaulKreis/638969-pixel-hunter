@@ -25,16 +25,8 @@ export default class StatsView extends AbstractView {
   <td class="result__number">1.</td>
   <td colspan="2">
     <ul class="stats">
-      <li class="stats__result stats__result--${this.answers[0]}"></li>
-      <li class="stats__result stats__result--${this.answers[1]}"></li>
-      <li class="stats__result stats__result--${this.answers[2]}"></li>
-      <li class="stats__result stats__result--${this.answers[3]}"></li>
-      <li class="stats__result stats__result--${this.answers[4]}"></li>
-      <li class="stats__result stats__result--${this.answers[5]}"></li>
-      <li class="stats__result stats__result--${this.answers[6]}"></li>
-      <li class="stats__result stats__result--${this.answers[7]}"></li>
-      <li class="stats__result stats__result--${this.answers[8]}"></li>
-      <li class="stats__result stats__result--${this.answers[9]}"></li>
+    ${[...this.answers].map((answer) =>
+    `<li class="stats__result stats__result--${answer}"></li>`).join(``)}
     </ul>
   </td>
   <td class="result__points">× 100</td>

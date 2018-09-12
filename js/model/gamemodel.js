@@ -3,7 +3,7 @@ class GameModel {
     this.questions = questions;
     this.state = {
       mistakes: 0,
-      answers: [`unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`],
+      answers: [`unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`],
       currentQuestion: 0,
       lifes: [`full`, `full`, `full`],
       time: 30};
@@ -12,6 +12,14 @@ class GameModel {
   //  Предоставить данные для следующего уровня / нужного экрана
   getCurrentQuestion() {
     return this.questions[this.state.currentQuestion];
+  }
+
+  getQuestionNumber() {
+    return this.state.currentQuestion;
+  }
+
+  getAnswers() {
+    return this.state.answers;
   }
 
   returnQuestionType() {

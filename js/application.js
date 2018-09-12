@@ -3,23 +3,25 @@ import GreetingView from './views/greetingview';
 import RulesView from './views/rulesview.js';
 import StatsView from './views/statsview.js';
 import * as Data from './data/data.js';
-import GameScreen from './game.js';
+import GameScreen from './game-screen.js';
 import GameModel from './model/gamemodel.js';
 
 const MAIN = document.querySelector(`#main`);
-
-const changeView = (element) => {
-  MAIN.innerHTML = ``;
-  MAIN.appendChild(element);
-};
-
+let netData;
 export default class Application {
+
+  static changeView(element) {
+    MAIN.innerHTML = ``;
+    MAIN.appendChild(element);
+  }
+
   static showIntro() {
+    this.start();
     const intro = new IntroView();
     intro.onAnswer = () => {
       this.showGreeting(Data.greetingData);
     };
-    changeView(intro.element);
+    this.changeView(intro.element);
   }
 
   static showGreeting(data) {
@@ -27,7 +29,7 @@ export default class Application {
     greeting.onAnswer = () => {
       this.showRules(Data.rulesData);
     };
-    changeView(greeting.element);
+    this.changeView(greeting.element);
   }
 
   static showRules(data) {
@@ -35,11 +37,31 @@ export default class Application {
     rules.onAnswer = () => {
       this.showGame();
     };
-    changeView(rules.element);
+    this.changeView(rules.element);
   }
+  static start() {
+    const whenStatsAreLoaded = window.fetch(`https://es.dump.academy/pixel-hunter/questions`);
 
+    whenStatsAreLoaded.
+    then((response) => {
+      //  debugger;
+      if (response.ok) {
+        return response.json();
+      } else if (response.status === 404) {
+        return [];
+      }
+      throw new Error(`Неизвестный статус: ${response.status} ${response.statusText}`);
+    }).
+    then((data) => {
+      //  Как в одной из демок
+      netData = data;
+    });
+    //  then((data) => console.log(data)).
+    //  catch((err) => console.error(err));
+
+  }
   static showGame() {
-    const gameModel = new GameModel(Data.questions);
+    const gameModel = new GameModel(netData);
     const gameScreen = new GameScreen(gameModel);
     gameScreen.startGame();
     gameScreen.showStats = (questions) => {
@@ -52,7 +74,7 @@ export default class Application {
     stats.onAnswer = () => {
       this.showIntro();
     };
-    changeView(stats.element);
+    this.changeView(stats.element);
   }
 }
 

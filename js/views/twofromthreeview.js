@@ -11,28 +11,28 @@ export default class TwoFromThreeView extends AbstractView {
   get template() {
     const caption = `<p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>`;
     let formClass = `game__content`;
-    let correctSize = resize(FRAME_SIZE, {width: this.question.option1.width, height: this.question.option1.height});
+    let correctSize = resize(FRAME_SIZE, {width: this.question.answers[0].image.width, height: this.question.answers[0].image.height});
     let option1 = `  <div class="game__option">
-    <img src="${this.question.option1.src}" alt="${this.question.option1.alt}" width="${correctSize.width}" height="${correctSize.height}">
+    <img src="${this.question.answers[0].image.url}" alt="${this.question.type}" width="${correctSize.width}" height="${correctSize.height}">
     <label class="game__answer game__answer--photo">
     <input class="visually-hidden" name="question1" type="radio" value="photo" data-item="1">
     <span>Фото</span>
     </label>
     <label class="game__answer game__answer--paint">
-    <input class="visually-hidden" name="question1" type="radio" value="paint" data-item="2">
+    <input class="visually-hidden" name="question1" type="radio" value="painting" data-item="2">
     <span>Рисунок</span>
     </label>
     </div>`;
 
-    let correctSize2 = resize(FRAME_SIZE, {width: this.question.option2.width, height: this.question.option2.height});
+    let correctSize2 = resize(FRAME_SIZE, {width: this.question.answers[1].image.width, height: this.question.answers[1].image.height});
     let option2 = `<div class="game__option">
-    <img src="${this.question.option2.src}" alt="${this.question.option2.alt}" width="${correctSize2.width}" height="${correctSize2.height}">
+    <img src="${this.question.answers[1].image.url}" alt="${this.question.type}" width="${correctSize2.width}" height="${correctSize2.height}">
     <label class="game__answer  game__answer--photo">
     <input class="visually-hidden" name="question2" type="radio" value="photo" data-item="3">
     <span>Фото</span>
     </label>
     <label class="game__answer  game__answer--paint">
-    <input class="visually-hidden" name="question2" type="radio" value="paint" data-item="4">
+    <input class="visually-hidden" name="question2" type="radio" value="painting" data-item="4">
     <span>Рисунок</span>
     </label>
     </div>`;
