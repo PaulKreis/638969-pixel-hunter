@@ -1,7 +1,5 @@
 import AbstractView from '../components/abstractview.js';
 import resize from '../utils/resize.js';
-import FooterView from '../views/footerview.js';
-import HeaderView from '../views/headerview.js';
 
 const FRAME_SIZE = {width: 304, height: 455};
 
@@ -11,8 +9,6 @@ export default class ThreeFromThreeView extends AbstractView {
     this.question = question;
   }
   get template() {
-    const footerView = new FooterView();
-    const headerView = new HeaderView();
     let correctSize1 = resize(FRAME_SIZE, {width: this.question.option1.width, height: this.question.option1.height});
     let correctSize2 = resize(FRAME_SIZE, {width: this.question.option2.width, height: this.question.option2.height});
     let correctSize3 = resize(FRAME_SIZE, {width: this.question.option3.width, height: this.question.option3.height});
@@ -31,7 +27,6 @@ export default class ThreeFromThreeView extends AbstractView {
 
 
     return `
-    ${headerView.template}
       <section class="game">
         ${caption}
         <form class="${formClass}">
@@ -39,7 +34,6 @@ export default class ThreeFromThreeView extends AbstractView {
           ${option2}
           ${option3}
         </form>
-        ${footerView.template}
       </section>`;
   }
 
