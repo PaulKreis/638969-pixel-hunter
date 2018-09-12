@@ -9,7 +9,7 @@ export default class TwoFromThreeView extends AbstractView {
     this.question = question;
   }
   get template() {
-    const caption = `<p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>`;
+    const caption = `<p class="game__task">${this.question.question}</p>`;
     let formClass = `game__content`;
     let correctSize = resize(FRAME_SIZE, {width: this.question.answers[0].image.width, height: this.question.answers[0].image.height});
     let option1 = `  <div class="game__option">

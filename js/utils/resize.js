@@ -3,7 +3,6 @@ const resize = (frame, image) => {
     width: 0,
     height: 0,
   };
-
   const aspectRatio = image.width / image.height;
 
   if (image.width >= frame.width || image.height >= frame.height) {
@@ -18,7 +17,11 @@ const resize = (frame, image) => {
     newSize.width = image.width;
     newSize.height = image.height;
   }
+  console.log(`frame: ` + frame.width, frame.height);
 
+  console.log(`image: ` + image.width, image.height);
+
+  console.log(`newSize: ` + newSize.width, newSize.height);
   return newSize;
 };
 

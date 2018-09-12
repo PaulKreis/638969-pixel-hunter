@@ -61,6 +61,7 @@ export default class Application {
 
   }
   static showGame() {
+    console.log(netData);
     const gameModel = new GameModel(netData);
     const gameScreen = new GameScreen(gameModel);
     gameScreen.startGame();

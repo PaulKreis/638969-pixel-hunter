@@ -9,11 +9,12 @@ export default class ThreeFromThreeView extends AbstractView {
     this.question = question;
   }
   get template() {
+    console.log(this.question.answers[0].image.width, this.question.answers[0].image.height);
     let correctSize1 = resize(FRAME_SIZE, {width: this.question.answers[0].image.width, height: this.question.answers[0].image.height});
     let correctSize2 = resize(FRAME_SIZE, {width: this.question.answers[1].image.width, height: this.question.answers[1].image.height});
     let correctSize3 = resize(FRAME_SIZE, {width: this.question.answers[2].image.width, height: this.question.answers[2].image.height});
 
-    const caption = `<p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>`;
+    const caption = `<p class="game__task">${this.question.question}</p>`;
     const formClass = `game__content  game__content--triple`;
     const option1 = `<div class="game__option" data-item="${this.question.answers[0].type}">
       <img src="${this.question.answers[0].image.url}" width="${correctSize1.width}" height="${correctSize1.height}">
