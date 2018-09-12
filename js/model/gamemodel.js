@@ -46,8 +46,6 @@ class GameModel {
     this.state.lifes[this.state.mistakes] = `empty`;
     this.state.mistakes += 1;
   }
-//  Управлять количеством жизней
-//
 }
 
 export default GameModel;

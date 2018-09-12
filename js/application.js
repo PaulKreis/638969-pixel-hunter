@@ -1,6 +1,7 @@
 import IntroView from './views/introview.js';
 import GreetingView from './views/greetingview';
 import RulesView from './views/rulesview.js';
+import StatsView from './views/statsview.js';
 import * as Data from './data/data.js';
 import GameScreen from './game.js';
 import GameModel from './model/gamemodel.js';
@@ -12,7 +13,7 @@ const changeView = (element) => {
   MAIN.appendChild(element);
 };
 
-export default class Router {
+export default class Application {
   static showIntro() {
     const intro = new IntroView();
     intro.onAnswer = () => {
@@ -41,7 +42,18 @@ export default class Router {
     const gameModel = new GameModel(Data.questions);
     const gameScreen = new GameScreen(gameModel);
     gameScreen.startGame();
+    gameScreen.showStats = (questions) => {
+      this.showStats(questions);
+    };
+  }
+
+  static showStats(questions) {
+    const stats = new StatsView(questions);
+    stats.onAnswer = () => {
+      this.showIntro();
+    };
+    changeView(stats.element);
   }
 }
 
-Router.showIntro();
+Application.showIntro();

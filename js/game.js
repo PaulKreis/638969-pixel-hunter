@@ -3,40 +3,33 @@ import HeaderView from './views/headerview.js';
 import OneFromThreeView from './views/onefromthreeview.js';
 import TwoFromThreeView from './views/twofromthreeview.js';
 import ThreeFromThreeView from './views/threefromthreeview.js';
-import stats from './screens/stats.js';
-import {getElementFromTemplate, changeScreen} from './utils/createdom.js';
+import {getElementFromTemplate} from './utils/createdom.js';
 
 //  Объявляю константы
 const MAIN = document.querySelector(`#main`);
-const NUMBER_OF_SCREENS = 10;
 
-//  И кое-какие переменные (потом надо будет все это пихнуть в модель)
+//  Создаю различные DOM элементы
 let levelView = ``;
 const root = getElementFromTemplate();
 const headerElement = getElementFromTemplate();
 const levelElement = getElementFromTemplate();
 const footerElement = getElementFromTemplate();
-//  Создаю базовые элементы для экрана игры
-
-
-//  Функции обновления экранов
 
 class GameScreen {
   constructor(model) {
     this.model = model;
     this._interval = null;
-    this.currentScreen = -1;
-    this._interval = null;
+  }
+
+  //  Методы по обновлению элементов
+  updateView(container, view) {
+    container.innerHTML = ``;
+    container.appendChild(view.element);
   }
 
   updateHeader() {
     const state = this.model.getCurrentState();
     this.updateView(headerElement, new HeaderView(state.time, state.lifes));
-  }
-
-  updateView(container, view) {
-    container.innerHTML = ``;
-    container.appendChild(view.element);
   }
 
   updateFooter(ans) {
@@ -49,23 +42,7 @@ class GameScreen {
     this.updateFooter(this.model.state.answers);
   }
 
-  changeView(element) {
-    MAIN.innerHTML = ``;
-    const headerView = new HeaderView([`full`, `full`, `empty`]);
-    MAIN.appendChild(headerView.element);
-    MAIN.appendChild(element);
-    const footerView = new FooterView(this.model.state.answers);
-    MAIN.appendChild(footerView.element);
-  }
-
-  get element() {
-    return this.root;
-  }
-
-  stopGame() {
-    clearInterval(this._interval);
-  }
-
+  //  Методы таймера
   startTimer() {
     this._interval = setInterval(() => {
       this.model.tick();
@@ -81,6 +58,19 @@ class GameScreen {
     this.model.resetTime();
   }
 
+  //  Метод начала игры
+  startGame() {
+    root.innerHTML = ``;
+    root.appendChild(headerElement);
+    root.appendChild(levelElement);
+    root.appendChild(footerElement);
+    MAIN.innerHTML = ``;
+    MAIN.appendChild(root);
+    this.changeScreens();
+    this.startTimer();
+  }
+
+  //  Методы отображения игровых экранов
   showOneFromThree() {
     levelView = new OneFromThreeView(this.model.getCurrentQuestion());
     levelView.onAnswer = (value) => {
@@ -93,7 +83,7 @@ class GameScreen {
   showTwoFromThree() {
     levelView = new TwoFromThreeView(this.model.getCurrentQuestion());
     levelView.onAnswer = (value1, value2) => {
-      const answer = (value1 === this.model.questions[this.currentScreen].option1.value && value2 === this.model.questions[this.currentScreen].option2.value ? `correct` : `wrong`);
+      const answer = (value1 === this.model.questions[this.model.getCurrentState().currentQuestion].option1.value && value2 === this.model.questions[this.model.getCurrentState().currentQuestion].option2.value ? `correct` : `wrong`);
       this.checkMistakes(answer);
     };
     return (levelView);
@@ -102,43 +92,31 @@ class GameScreen {
   showThreeFromThree() {
     levelView = new ThreeFromThreeView(this.model.getCurrentQuestion());
     levelView.onAnswer = (value) => {
-      const answer = (value === this.model.questions[this.currentScreen].correct ? `correct` : `wrong`);
+      const answer = (value === this.model.questions[this.model.getCurrentState().currentQuestion].correct ? `correct` : `wrong`);
       this.checkMistakes(answer);
     };
     return (levelView);
   }
 
+  //  Метод отображения статистики
+  showStats() { }
+
+  //  Метод смены экранов
   changeScreens() {
-    this.currentScreen += 1;
-    if (this.currentScreen < NUMBER_OF_SCREENS) {
-      switch (this.model.returnQuestionType()) {
-        case `one_from_three`:
-          this.updateScreen(this.showOneFromThree());
-          break;
-        case `two_from_three`:
-          this.updateScreen(this.showTwoFromThree());
-          break;
-        case `three_from_three`:
-          this.updateScreen(this.showThreeFromThree(this.currentScreen));
-          break;
-      }
-    } else {
-      this.changeView(stats(this.model.state.answers));
+    switch (this.model.returnQuestionType()) {
+      case `one_from_three`:
+        this.updateScreen(this.showOneFromThree());
+        break;
+      case `two_from_three`:
+        this.updateScreen(this.showTwoFromThree());
+        break;
+      case `three_from_three`:
+        this.updateScreen(this.showThreeFromThree());
+        break;
     }
   }
 
-  startGame() {
-    // Добвляю в контенер заготовки
-    root.innerHTML = ``;
-    root.appendChild(headerElement);
-    root.appendChild(levelElement);
-    root.appendChild(footerElement);
-    MAIN.innerHTML = ``;
-    MAIN.appendChild(root);
-    this.changeScreens();
-    this.startTimer();
-  }
-
+  //  Проверка ответов пользователя
   checkMistakes(answer) {
     if (answer === `wrong`) {
       this.model.reduceLifes();
@@ -149,7 +127,8 @@ class GameScreen {
     }
     this.model.addAnswer(answer);
     if (this.model.getCurrentState().mistakes === 3) {
-      changeScreen(stats(this.model.state.answers));
+      this.stopTimer();
+      this.showStats(this.model.state.answers);
     } else {
       this.model.nextLevel();
       this.stopTimer();
