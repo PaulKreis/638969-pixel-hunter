@@ -31,7 +31,7 @@ class GameModel {
   }
 
   checkTime() {
-    return this.state.time === 0;
+    return this.state.time;
   }
 
   nextLevel() {

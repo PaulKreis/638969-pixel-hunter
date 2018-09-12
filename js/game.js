@@ -7,7 +7,7 @@ import {getElementFromTemplate} from './utils/createdom.js';
 
 //  Объявляю константы
 const MAIN = document.querySelector(`#main`);
-
+let flashingState = `black`;
 //  Создаю различные DOM элементы
 let levelView = ``;
 const root = getElementFromTemplate();
@@ -19,6 +19,7 @@ class GameScreen {
   constructor(model) {
     this.model = model;
     this._interval = null;
+    this._intervalFlashing = null;
   }
 
   //  Методы по обновлению элементов
@@ -44,12 +45,20 @@ class GameScreen {
 
   //  Методы таймера
   startTimer() {
+    const timerElement = document.getElementsByClassName(`game__timer`);
     this._interval = setInterval(() => {
       this.model.tick();
-      if (this.model.checkTime()) {
+      if (this.model.checkTime() === 0) {
         this.checkMistakes(`wrong`);
+      } else if (this.model.checkTime() <= 5) {
+        if (flashingState === `black`) {
+          flashingState = `red`;
+        } else {
+          flashingState = `black`;
+        }
       }
       this.updateHeader();
+      timerElement[0].style.color = flashingState;
     }, 1000);
   }
 
@@ -134,6 +143,7 @@ class GameScreen {
       this.stopTimer();
       this.model.resetTime();
       this.startTimer();
+      flashingState = `black`;
       this.changeScreens();
     }
   }
