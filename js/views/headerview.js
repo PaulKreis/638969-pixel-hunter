@@ -20,13 +20,19 @@ export default class HeaderView extends AbstractView {
 </button>
 <div class="game__timer">${this.time}</div>
 <div class="game__lives">
-  <img src="img/heart__${this.lifes[0]}.svg" class="game__heart" alt=" Missed Life" width="31" height="27">
-  <img src="img/heart__${this.lifes[1]}.svg" class="game__heart" alt="Life" width="31" height="27">
-  <img src="img/heart__${this.lifes[2]}.svg" class="game__heart" alt="Life" width="31" height="27">
+${[...this.lifes].map((life) =>
+    `<img src="img/heart__${life}.svg" class="game__heart" alt="${life}" width="31" height="27">`).join(``)}
 </div>
 </header>
 `;
   }
 
   onAnswer() { }
+
+  bind() {
+    const backbutton = this.element.querySelector(`.back`);
+    backbutton.addEventListener(`click`, () => {
+      this.onAnswer();
+    });
+  }
 }

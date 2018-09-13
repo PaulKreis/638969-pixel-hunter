@@ -3,15 +3,24 @@ class GameModel {
     this.questions = questions;
     this.state = {
       mistakes: 0,
-      answers: [`unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`],
+      answers: [`unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`],
       currentQuestion: 0,
-      lifes: [`full`, `full`, `full`],
-      time: 30};
+      lifes: [`full`, `full`, `full`]
+    };
+
   }
 
   //  Предоставить данные для следующего уровня / нужного экрана
   getCurrentQuestion() {
     return this.questions[this.state.currentQuestion];
+  }
+
+  getQuestionNumber() {
+    return this.state.currentQuestion;
+  }
+
+  getAnswers() {
+    return this.state.answers;
   }
 
   returnQuestionType() {
@@ -20,18 +29,6 @@ class GameModel {
 
   getCurrentState() {
     return this.state;
-  }
-
-  tick() {
-    this.state.time -= 1;
-  }
-
-  resetTime() {
-    this.state.time = 30;
-  }
-
-  checkTime() {
-    return this.state.time;
   }
 
   nextLevel() {
