@@ -1,18 +1,19 @@
 import AbstractView from '../components/abstractview.js';
 
 export default class GreetingView extends AbstractView {
-  constructor(greetingData) {
+  constructor() {
     super();
-    this.greetingData = greetingData;
   }
   get template() {
     const logo = `<img class="greeting__logo" src="img/logo_ph-big.svg" width="201" height="89" alt="Pixel Hunter">`;
     const asterisk = `<div class="greeting__asterisk asterisk"><span class="visually-hidden">Я просто красивая звёздочка</span>*</div>`;
-    const header = `<h3 class="greeting__challenge-title">${this.greetingData.title}</h3>`;
-    const rulesText = `<p class="greeting__challenge-text">${this.greetingData.challengetext}</p>
+    const header = `<h3 class="greeting__challenge-title">Лучшие художники-фотореалисты бросают тебе вызов!</h3>`;
+    const rulesText = `<p class="greeting__challenge-text">Правила игры просты:</p>
       <ul class="greeting__challenge-list">
-      ${[...this.greetingData.rules].map((rule) =>
-    `<li>${rule}</li>`).join(``)}
+    <li>Нужно отличить рисунок от фотографии и сделать выбор.</li>
+    <li>Задача кажется тривиальной, но не думай, что все так просто.</li>
+    <li>Фотореализм обманчив и коварен.</li>
+    <li>Помни, главное — смотреть очень внимательно.</li>
     </ul>`;
     const arrowBtn = `<button class="greeting__continue" type="button">
     <span class="visually-hidden">Продолжить</span>

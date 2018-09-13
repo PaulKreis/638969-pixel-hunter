@@ -28,4 +28,11 @@ ${[...this.lifes].map((life) =>
   }
 
   onAnswer() { }
+
+  bind() {
+    const backbutton = this.element.querySelector(`.back`);
+    backbutton.addEventListener(`click`, () => {
+      this.onAnswer();
+    });
+  }
 }

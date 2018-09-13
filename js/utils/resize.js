@@ -17,11 +17,6 @@ const resize = (frame, image) => {
     newSize.width = image.width;
     newSize.height = image.height;
   }
-  console.log(`frame: ` + frame.width, frame.height);
-
-  console.log(`image: ` + image.width, image.height);
-
-  console.log(`newSize: ` + newSize.width, newSize.height);
   return newSize;
 };
 

@@ -4,12 +4,12 @@ import OneFromThreeView from './views/onefromthreeview.js';
 import TwoFromThreeView from './views/twofromthreeview.js';
 import ThreeFromThreeView from './views/threefromthreeview.js';
 import {getElementFromTemplate} from './utils/createdom.js';
+import Timer from './utils/timer.js';
 
 class GameScreen {
   constructor(model) {
     this.model = model;
     this._interval = null;
-    this._intervalFlashing = null;
     this.levelView = ``;
     this.root = getElementFromTemplate();
     this.headerElement = getElementFromTemplate();
@@ -17,7 +17,14 @@ class GameScreen {
     this.footerElement = getElementFromTemplate();
     this.main = document.querySelector(`#main`);
     this.flashingState = `black`;
+    this.timer = new Timer(30, () => {
+      this.checkMistakes(`wrong`);
+    });
   }
+
+  //  Методы, которые я переопределяю в Application
+  showStats() { }
+  showIntro() { }
 
   //  Методы по обновлению элементов
   updateView(container, view) {
@@ -27,7 +34,12 @@ class GameScreen {
 
   updateHeader() {
     const state = this.model.getCurrentState();
-    this.updateView(this.headerElement, new HeaderView(state.time, state.lifes));
+    let headerView = new HeaderView(this.timer.currentTime, state.lifes);
+    headerView.onAnswer = () => {
+      this.showIntro();
+      this.timer.stop();
+    };
+    this.updateView(this.headerElement, headerView);
   }
 
   updateFooter() {
@@ -40,30 +52,6 @@ class GameScreen {
     this.updateFooter();
   }
 
-  //  Методы таймера
-  startTimer() {
-    const timerElement = document.getElementsByClassName(`game__timer`);
-    this._interval = setInterval(() => {
-      this.model.tick();
-      if (this.model.checkTime() === 0) {
-        this.checkMistakes(`wrong`);
-      } else if (this.model.checkTime() <= 5) {
-        if (this.flashingState === `black`) {
-          this.flashingState = `red`;
-        } else {
-          this.flashingState = `black`;
-        }
-      }
-      this.updateHeader();
-      timerElement[0].style.color = this.flashingState;
-    }, 1000);
-  }
-
-  stopTimer() {
-    clearTimeout(this._interval);
-    this.model.resetTime();
-  }
-
   //  Метод начала игры
   startGame() {
     this.root.innerHTML = ``;
@@ -73,13 +61,13 @@ class GameScreen {
     this.root.appendChild(this.footerElement);
     this.main.appendChild(this.root);
     this.changeScreens();
-    this.startTimer();
+    this.timer.start();
   }
 
   //  Методы отображения игровых экранов
   showOneFromThree() {
     this.levelView = new OneFromThreeView(this.model.getCurrentQuestion());
-    console.log(`This is: ` + this.model.questions[this.model.getCurrentState().currentQuestion].answers[0].type);
+    //  console.log(`This is: ` + this.model.questions[this.model.getCurrentState().currentQuestion].answers[0].type);
     this.levelView.onAnswer = (value) => {
       const answer = (value === this.model.questions[this.model.getCurrentState().currentQuestion].answers[0].type ? `correct` : `wrong`);
       this.checkMistakes(answer);
@@ -89,7 +77,7 @@ class GameScreen {
 
   showTwoFromThree() {
     this.levelView = new TwoFromThreeView(this.model.getCurrentQuestion());
-    console.log(`This is: ` + this.model.questions[this.model.getCurrentState().currentQuestion].answers[0].type, this.model.questions[this.model.getCurrentState().currentQuestion].answers[1].type);
+    //  console.log(`This is: ` + this.model.questions[this.model.getCurrentState().currentQuestion].answers[0].type, this.model.questions[this.model.getCurrentState().currentQuestion].answers[1].type);
     this.levelView.onAnswer = (value1, value2) => {
       const answer = (value1 === this.model.questions[this.model.getCurrentState().currentQuestion].answers[0].type && value2 === this.model.questions[this.model.getCurrentState().currentQuestion].answers[1].type ? `correct` : `wrong`);
       this.checkMistakes(answer);
@@ -99,16 +87,14 @@ class GameScreen {
 
   showThreeFromThree() {
     this.levelView = new ThreeFromThreeView(this.model.getCurrentQuestion());
-    console.log(`This is: ` + this.model.questions[this.model.getCurrentState().currentQuestion].answers[0].type, this.model.questions[this.model.getCurrentState().currentQuestion].answers[1].type, this.model.questions[this.model.getCurrentState().currentQuestion].answers[2].type);
+    //  console.log(`This is: ` + this.model.questions[this.model.getCurrentState().currentQuestion].answers[0].type, this.model.questions[this.model.getCurrentState().currentQuestion].answers[1].type, this.model.questions[this.model.getCurrentState().currentQuestion].answers[2].type);
+    const correctValue = (this.model.questions[this.model.getCurrentState().currentQuestion].question === `Найдите фото среди изображений` ? `photo` : `painting`);
     this.levelView.onAnswer = (value) => {
-      const answer = (value === `photo` ? `correct` : `wrong`);
+      const answer = (value === correctValue ? `correct` : `wrong`);
       this.checkMistakes(answer);
     };
     return (this.levelView);
   }
-
-  //  Метод отображения статистики
-  showStats() { }
 
   //  Метод смены экранов
   changeScreens() {
@@ -129,20 +115,19 @@ class GameScreen {
   checkMistakes(answer) {
     if (answer === `wrong`) {
       this.model.reduceLifes();
-    } else if (this.model.getCurrentState().time >= 20) {
+    } else if (this.timer.currentTime >= 20) {
       answer = `fast`;
-    } else if (this.model.getCurrentState().time <= 10) {
+    } else if (this.timer.currentTime <= 10) {
       answer = `slow`;
     }
     this.model.addAnswer(answer);
     if (this.model.getCurrentState().mistakes === 3 || this.model.getQuestionNumber() + 1 === 10) {
-      this.stopTimer();
+      this.timer.stop();
       this.showStats(this.model.state.answers);
     } else {
       this.model.nextLevel();
-      this.stopTimer();
-      this.model.resetTime();
-      this.startTimer();
+      this.timer.stop();
+      this.timer.start();
       this.flashingState = `black`;
       this.changeScreens();
     }

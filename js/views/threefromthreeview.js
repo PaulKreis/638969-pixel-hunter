@@ -9,7 +9,6 @@ export default class ThreeFromThreeView extends AbstractView {
     this.question = question;
   }
   get template() {
-    console.log(this.question.answers[0].image.width, this.question.answers[0].image.height);
     let correctSize1 = resize(FRAME_SIZE, {width: this.question.answers[0].image.width, height: this.question.answers[0].image.height});
     let correctSize2 = resize(FRAME_SIZE, {width: this.question.answers[1].image.width, height: this.question.answers[1].image.height});
     let correctSize3 = resize(FRAME_SIZE, {width: this.question.answers[2].image.width, height: this.question.answers[2].image.height});

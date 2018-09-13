@@ -2,7 +2,6 @@ import IntroView from './views/introview.js';
 import GreetingView from './views/greetingview';
 import RulesView from './views/rulesview.js';
 import StatsView from './views/statsview.js';
-import * as Data from './data/data.js';
 import GameScreen from './game-screen.js';
 import GameModel from './model/gamemodel.js';
 
@@ -16,33 +15,33 @@ export default class Application {
   }
 
   static showIntro() {
-    this.start();
+    this.loadData();
     const intro = new IntroView();
     intro.onAnswer = () => {
-      this.showGreeting(Data.greetingData);
+      this.showGreeting();
     };
     this.changeView(intro.element);
   }
 
-  static showGreeting(data) {
-    const greeting = new GreetingView(data);
+  static showGreeting() {
+    const greeting = new GreetingView();
     greeting.onAnswer = () => {
-      this.showRules(Data.rulesData);
+      this.showRules();
     };
     this.changeView(greeting.element);
   }
 
-  static showRules(data) {
-    const rules = new RulesView(data);
+  static showRules() {
+    const rules = new RulesView();
     rules.onAnswer = () => {
       this.showGame();
     };
     this.changeView(rules.element);
   }
-  static start() {
-    const whenStatsAreLoaded = window.fetch(`https://es.dump.academy/pixel-hunter/questions`);
+  static loadData() {
+    const fetchData = window.fetch(`https://es.dump.academy/pixel-hunter/questions`);
 
-    whenStatsAreLoaded.
+    fetchData.
     then((response) => {
       //  debugger;
       if (response.ok) {
@@ -53,21 +52,20 @@ export default class Application {
       throw new Error(`Неизвестный статус: ${response.status} ${response.statusText}`);
     }).
     then((data) => {
-      //  Как в одной из демок
       netData = data;
     });
-    //  then((data) => console.log(data)).
-    //  catch((err) => console.error(err));
 
   }
   static showGame() {
-    console.log(netData);
     const gameModel = new GameModel(netData);
     const gameScreen = new GameScreen(gameModel);
-    gameScreen.startGame();
     gameScreen.showStats = (questions) => {
       this.showStats(questions);
     };
+    gameScreen.showIntro = () => {
+      this.showIntro();
+    };
+    gameScreen.startGame();
   }
 
   static showStats(questions) {
