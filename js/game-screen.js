@@ -67,7 +67,7 @@ class GameScreen {
   //  Методы отображения игровых экранов
   showOneFromThree() {
     this.levelView = new OneFromThreeView(this.model.getCurrentQuestion());
-    //  console.log(`This is: ` + this.model.questions[this.model.getCurrentState().currentQuestion].answers[0].type);
+    console.log(`This is: ` + this.model.questions[this.model.getCurrentState().currentQuestion].answers[0].type);
     this.levelView.onAnswer = (value) => {
       const answer = (value === this.model.questions[this.model.getCurrentState().currentQuestion].answers[0].type ? `correct` : `wrong`);
       this.checkMistakes(answer);
@@ -77,7 +77,7 @@ class GameScreen {
 
   showTwoFromThree() {
     this.levelView = new TwoFromThreeView(this.model.getCurrentQuestion());
-    //  console.log(`This is: ` + this.model.questions[this.model.getCurrentState().currentQuestion].answers[0].type, this.model.questions[this.model.getCurrentState().currentQuestion].answers[1].type);
+    console.log(`This is: ` + this.model.questions[this.model.getCurrentState().currentQuestion].answers[0].type, this.model.questions[this.model.getCurrentState().currentQuestion].answers[1].type);
     this.levelView.onAnswer = (value1, value2) => {
       const answer = (value1 === this.model.questions[this.model.getCurrentState().currentQuestion].answers[0].type && value2 === this.model.questions[this.model.getCurrentState().currentQuestion].answers[1].type ? `correct` : `wrong`);
       this.checkMistakes(answer);
@@ -87,7 +87,7 @@ class GameScreen {
 
   showThreeFromThree() {
     this.levelView = new ThreeFromThreeView(this.model.getCurrentQuestion());
-    //  console.log(`This is: ` + this.model.questions[this.model.getCurrentState().currentQuestion].answers[0].type, this.model.questions[this.model.getCurrentState().currentQuestion].answers[1].type, this.model.questions[this.model.getCurrentState().currentQuestion].answers[2].type);
+    console.log(`This is: ` + this.model.questions[this.model.getCurrentState().currentQuestion].answers[0].type, this.model.questions[this.model.getCurrentState().currentQuestion].answers[1].type, this.model.questions[this.model.getCurrentState().currentQuestion].answers[2].type);
     const correctValue = (this.model.questions[this.model.getCurrentState().currentQuestion].question === `Найдите фото среди изображений` ? `photo` : `painting`);
     this.levelView.onAnswer = (value) => {
       const answer = (value === correctValue ? `correct` : `wrong`);
@@ -123,7 +123,7 @@ class GameScreen {
     this.model.addAnswer(answer);
     if (this.model.getCurrentState().mistakes === 3 || this.model.getQuestionNumber() + 1 === 10) {
       this.timer.stop();
-      this.showStats(this.model.state.answers);
+      this.showStats(this.model.state.answers, this.model.returnNumberOfLifes(), this.model.getScores());
     } else {
       this.model.nextLevel();
       this.timer.stop();

@@ -47,10 +47,11 @@ ${form}
 
   bind() {
     const submit = this.element.querySelector(`.rules__button`);
-    submit.addEventListener(`click`, () => {
-      this.onAnswer();
-    });
     const name = this.element.querySelector(`.rules__input`);
+    submit.addEventListener(`click`, () => {
+      this.onAnswer(name.value);
+    });
+
 
     name.addEventListener(`input`, () => {
       if (name.value !== ``) {

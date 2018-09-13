@@ -4,9 +4,10 @@ import RulesView from './views/rulesview.js';
 import StatsView from './views/statsview.js';
 import GameScreen from './game-screen.js';
 import GameModel from './model/gamemodel.js';
-
+import Loader from './utils/loader.js';
 const MAIN = document.querySelector(`#main`);
 let netData;
+let playerName;
 export default class Application {
 
   static changeView(element) {
@@ -33,7 +34,8 @@ export default class Application {
 
   static showRules() {
     const rules = new RulesView();
-    rules.onAnswer = () => {
+    rules.onAnswer = (name) => {
+      playerName = name;
       this.showGame();
     };
     this.changeView(rules.element);
@@ -59,8 +61,8 @@ export default class Application {
   static showGame() {
     const gameModel = new GameModel(netData);
     const gameScreen = new GameScreen(gameModel);
-    gameScreen.showStats = (questions) => {
-      this.showStats(questions);
+    gameScreen.showStats = (questions, lifes, scores) => {
+      this.showStats(questions, lifes, scores);
     };
     gameScreen.showIntro = () => {
       this.showIntro();
@@ -68,13 +70,16 @@ export default class Application {
     gameScreen.startGame();
   }
 
-  static showStats(questions) {
-    const stats = new StatsView(questions);
+  static showStats(answers, lifes, scores) {
+    const stats = new StatsView(answers, scores);
     stats.onAnswer = () => {
       this.showIntro();
     };
     this.changeView(stats.element);
+    Loader.saveResults(answers, playerName, lifes, scores).
+      then(() => Loader.loadResults(playerName)).
+      then((data) => stats.showScores(data)).
+      catch(Application.showError);
   }
 }
-
 Application.showIntro();

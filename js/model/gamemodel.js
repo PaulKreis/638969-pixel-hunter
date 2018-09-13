@@ -27,8 +27,55 @@ class GameModel {
     return this.questions[this.state.currentQuestion].type;
   }
 
+  returnNumberOfLifes() {
+    let number = 0;
+    this.state.lifes.forEach(function (life) {
+      if (life === `full`) {
+        number += 1;
+      }
+    });
+    return number;
+  }
+
   getCurrentState() {
     return this.state;
+  }
+
+  getScores() {
+    let basicScores = 0;
+    let fastScores = 0;
+    let slowScores = 0;
+    let lifeBonus = 0;
+    let totalScores = 0;
+    let scoresArray = this.state.answers.filter(function (answer) {
+      return answer === `correct`;
+    });
+    basicScores = scoresArray.length;
+
+    scoresArray = this.state.answers.filter(function (answer) {
+      return answer === `fast`;
+    });
+    basicScores += scoresArray.length;
+    fastScores = scoresArray.length;
+
+    scoresArray = this.state.answers.filter(function (answer) {
+      return answer === `slow`;
+    });
+    basicScores += scoresArray.length;
+    basicScores = basicScores * 100;
+    slowScores = scoresArray.length;
+    lifeBonus = this.returnNumberOfLifes();
+    totalScores = (basicScores) + (fastScores * 50) + (slowScores * 50 * (-1)) + (lifeBonus * 50);
+    let gameStatus = (basicScores >= 800 ? `Победа!` : `Поражение :(`);
+    basicScores = (gameStatus === `Поражение :(` ? `Fail` : basicScores);
+    return {
+      status: gameStatus,
+      basic: basicScores,
+      fast: fastScores,
+      slow: slowScores,
+      life: lifeBonus,
+      total: totalScores
+    };
   }
 
   nextLevel() {

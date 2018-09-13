@@ -1,9 +1,10 @@
 import AbstractView from '../components/abstractview.js';
 
 export default class StatsView extends AbstractView {
-  constructor(answers) {
+  constructor(answers, scores) {
     super();
     this.answers = answers;
+    this.scores = scores;
   }
   get template() {
     const header = `<header class="header">
@@ -18,45 +19,9 @@ export default class StatsView extends AbstractView {
 </button>
 </header>`;
 
-    const caption = `<h2 class="result__title">Победа!</h2>`;
+    const caption = ``;
 
-    const result1 = `<table class="result__table">
-<tr>
-  <td class="result__number">1.</td>
-  <td colspan="2">
-    <ul class="stats">
-    ${[...this.answers].map((answer) =>
-    `<li class="stats__result stats__result--${answer}"></li>`).join(``)}
-    </ul>
-  </td>
-  <td class="result__points">× 100</td>
-  <td class="result__total">900</td>
-</tr>
-<tr>
-  <td></td>
-  <td class="result__extra">Бонус за скорость:</td>
-  <td class="result__extra">1 <span class="stats__result stats__result--fast"></span></td>
-  <td class="result__points">× 50</td>
-  <td class="result__total">50</td>
-</tr>
-<tr>
-  <td></td>
-  <td class="result__extra">Бонус за жизни:</td>
-  <td class="result__extra">2 <span class="stats__result stats__result--alive"></span></td>
-  <td class="result__points">× 50</td>
-  <td class="result__total">100</td>
-</tr>
-<tr>
-  <td></td>
-  <td class="result__extra">Штраф за медлительность:</td>
-  <td class="result__extra">2 <span class="stats__result stats__result--slow"></span></td>
-  <td class="result__points">× 50</td>
-  <td class="result__total">-100</td>
-</tr>
-<tr>
-  <td colspan="5" class="result__total  result__total--final">950</td>
-</tr>
-</table>`;
+    const result1 = ``;
 
     const result2 = `<table class="result__table">
 <tr>
@@ -115,14 +80,63 @@ export default class StatsView extends AbstractView {
     return `
 ${header}
 <section class="result">
-${caption}
-${result1}
-${result2}
-${result3}
+<h2 class="result__title">^___^</h2>
+<div class="scoreboard">Scoreboard is loading...</div>
 </section>`;
   }
 
   onAnswer() { }
+
+  showScores(data2, username, lifes, scores) {
+    data2.reverse();
+    let data = data2.slice(0,3);
+
+    let _scoreBoardContainer = this.element.querySelector(`div.scoreboard`);
+    this._resultTitle = this.element.querySelector(`h2.result__title`);
+    this._resultTitle.innerHTML = data[0].scores.status;
+    console.log(data);
+    _scoreBoardContainer.innerHTML = ``;
+
+    data.forEach(function(data, i){
+    _scoreBoardContainer.innerHTML += `<table class="result__table">
+    <tr>
+      <td class="result__number">${i+1}.</td>
+      <td colspan="2">
+        <ul class="stats">
+        ${[...data.data].map((answer) =>
+    `<li class="stats__result stats__result--${answer}"></li>`).join(``)}
+        </ul>
+      </td>
+      <td class="result__points">× 100</td>
+      <td class="result__total">${data.scores.basic}</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td class="result__extra">Бонус за скорость:</td>
+      <td class="result__extra">${data.scores.fast} <span class="stats__result stats__result--fast"></span></td>
+      <td class="result__points">× 50</td>
+      <td class="result__total">${data.scores.fast * 50}</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td class="result__extra">Бонус за жизни:</td>
+      <td class="result__extra">${data.scores.life} <span class="stats__result stats__result--alive"></span></td>
+      <td class="result__points">× 50</td>
+      <td class="result__total">${data.scores.life * 50}</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td class="result__extra">Штраф за медлительность:</td>
+      <td class="result__extra">${data.scores.slow} <span class="stats__result stats__result--slow"></span></td>
+      <td class="result__points">× 50</td>
+      <td class="result__total">${data.scores.slow * 50 * (-1)}</td>
+    </tr>
+    <tr>
+      <td colspan="5" class="result__total  result__total--final">${data.scores.total}</td>
+    </tr>
+    </table>`;
+  })
+  }
 
   bind() {
     const backbutton = this.element.querySelector(`.back`);
