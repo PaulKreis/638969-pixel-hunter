@@ -1,4 +1,4 @@
-import AbstractView from '../components/abstractview.js';
+import AbstractView from '../components/abstract-view.js';
 
 export default class RulesView extends AbstractView {
   constructor(rulesData) {
@@ -47,10 +47,11 @@ ${form}
 
   bind() {
     const submit = this.element.querySelector(`.rules__button`);
-    submit.addEventListener(`click`, () => {
-      this.onAnswer();
-    });
     const name = this.element.querySelector(`.rules__input`);
+    submit.addEventListener(`click`, () => {
+      this.onAnswer(name.value);
+    });
+
 
     name.addEventListener(`input`, () => {
       if (name.value !== ``) {

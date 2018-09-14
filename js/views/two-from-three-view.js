@@ -1,5 +1,5 @@
-import AbstractView from '../components/abstractview.js';
-import resize from '../utils/resize.js';
+import AbstractView from '../components/abstract-view.js';
+import resize from '../components/resize.js';
 
 const FRAME_SIZE = {width: 468, height: 458};
 

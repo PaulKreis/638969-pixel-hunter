@@ -1,5 +1,5 @@
-import AbstractView from '../components/abstractview.js';
-import resize from '../utils/resize.js';
+import AbstractView from '../components/abstract-view.js';
+import resize from '../components/resize.js';
 const FRAME_SIZE = {width: 705, height: 455};
 
 export default class OneFromThreeView extends AbstractView {
