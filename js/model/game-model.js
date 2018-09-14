@@ -47,6 +47,7 @@ class GameModel {
     let slowScores = 0;
     let lifeBonus = 0;
     let totalScores = 0;
+
     let scoresArray = this.state.answers.filter(function (answer) {
       return answer === `correct`;
     });
@@ -62,12 +63,16 @@ class GameModel {
       return answer === `slow`;
     });
     basicScores += scoresArray.length;
-    basicScores = basicScores * 100;
     slowScores = scoresArray.length;
+
+    basicScores = basicScores * 100;
+
     lifeBonus = this.returnNumberOfLifes();
+
     totalScores = (basicScores) + (fastScores * 50) + (slowScores * 50 * (-1)) + (lifeBonus * 50);
     let gameStatus = (basicScores >= 800 ? `Победа!` : `Поражение :(`);
     basicScores = (gameStatus === `Поражение :(` ? `Fail` : basicScores);
+
     return {
       status: gameStatus,
       basic: basicScores,

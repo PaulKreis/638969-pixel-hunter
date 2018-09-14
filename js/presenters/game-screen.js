@@ -1,10 +1,10 @@
-import FooterView from './views/footerview.js';
-import HeaderView from './views/headerview.js';
-import OneFromThreeView from './views/onefromthreeview.js';
-import TwoFromThreeView from './views/twofromthreeview.js';
-import ThreeFromThreeView from './views/threefromthreeview.js';
-import {getElementFromTemplate} from './utils/createdom.js';
-import Timer from './utils/timer.js';
+import FooterView from '../views/footer-view.js';
+import HeaderView from '../views/header-view.js';
+import OneFromThreeView from '../views/one-from-three-view.js';
+import TwoFromThreeView from '../views/two-from-three-view.js';
+import ThreeFromThreeView from '../views/three-from-three-view.js';
+import {getElementFromTemplate} from '../utils/createdom.js';
+import Timer from '../components/timer.js';
 
 class GameScreen {
   constructor(model) {

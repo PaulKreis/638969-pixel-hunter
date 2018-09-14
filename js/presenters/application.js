@@ -1,15 +1,17 @@
-import IntroView from './views/introview.js';
-import GreetingView from './views/greetingview';
-import RulesView from './views/rulesview.js';
-import StatsView from './views/statsview.js';
+import IntroView from '../views/intro-view.js';
+import GreetingView from '../views/greeting-view';
+import RulesView from '../views/rules-view.js';
+import StatsView from '../views/stats-view.js';
 import GameScreen from './game-screen.js';
-import GameModel from './model/gamemodel.js';
-import Loader from './utils/loader.js';
+import GameModel from '../model/game-model.js';
+import Loader from '../components/loader.js';
+import ModalErrorView from '../views/modal-error-view.js';
+
 const MAIN = document.querySelector(`#main`);
 let netData;
 let playerName;
-export default class Application {
 
+export default class Application {
   static changeView(element) {
     MAIN.innerHTML = ``;
     MAIN.appendChild(element);
@@ -32,6 +34,11 @@ export default class Application {
     this.changeView(greeting.element);
   }
 
+  static showError(error) {
+    const errorView = new ModalErrorView(error);
+    this.changeView(errorView.element);
+  }
+
   static showRules() {
     const rules = new RulesView();
     rules.onAnswer = (name) => {
@@ -45,11 +52,10 @@ export default class Application {
 
     fetchData.
     then((response) => {
-      //  debugger;
       if (response.ok) {
         return response.json();
       } else if (response.status === 404) {
-        return [];
+        Application.showError(`404 - Не найдены данные для игры`);
       }
       throw new Error(`Неизвестный статус: ${response.status} ${response.statusText}`);
     }).
@@ -78,8 +84,7 @@ export default class Application {
     this.changeView(stats.element);
     Loader.saveResults(answers, playerName, lifes, scores).
       then(() => Loader.loadResults(playerName)).
-      then((data) => stats.showScores(data)).
-      catch(Application.showError);
+      catch((error) => Application.showError(error)).
+      then((data) => stats.showScores(data));
   }
 }
-Application.showIntro();

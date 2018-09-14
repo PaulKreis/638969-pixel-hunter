@@ -1,7 +1,7 @@
 const SERVER_URL = `https://es.dump.academy/pixel-hunter`;
 
-const APP_ID = 112233;
-const DEFAULT_NAME = `o0`;
+const APP_ID = 4815162342;
+const DEFAULT_NAME = `jacob`;
 const checkStatus = (response) => {
   if (response.ok) {
     return response;
