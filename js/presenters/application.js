@@ -76,13 +76,13 @@ export default class Application {
     gameScreen.startGame();
   }
 
-  static showStats(answers, lifes, scores) {
-    const stats = new StatsView(answers, scores);
+  static showStats(answers, scores) {
+    const stats = new StatsView();
     stats.onAnswer = () => {
       this.showIntro();
     };
     this.changeView(stats.element);
-    Loader.saveResults(answers, playerName, lifes, scores).
+    Loader.saveResults(answers, playerName, scores).
       then(() => Loader.loadResults(playerName)).
       catch((error) => Application.showError(error)).
       then((data) => stats.showScores(data));

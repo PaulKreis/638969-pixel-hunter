@@ -20,8 +20,8 @@ export default class Loader {
     return fetch(`${SERVER_URL}/stats/${APP_ID}-${name}`).then(checkStatus).then(toJSON);
   }
 
-  static saveResults(data, name = DEFAULT_NAME, lifes, scores) {
-    data = Object.assign({name}, {data}, {lifes}, {scores});
+  static saveResults(data, name = DEFAULT_NAME, scores) {
+    data = Object.assign({name}, {data}, {scores});
     const requestSettings = {
       body: JSON.stringify(data),
       headers: {

@@ -7,6 +7,17 @@ class GameModel {
       currentQuestion: 0,
       lifes: [`full`, `full`, `full`]
     };
+    this.settings = {
+      basicAnswerScore: 100,
+      fastAnswerTime: 10,
+      fastAnswerBonus: 50,
+      slowAnswerFine: -50,
+      slowAnswerTime: 20,
+      lifeBonus: 50,
+      lifes: 3,
+      numberOfQuestions: 10,
+      timeForAnswer: 30
+    };
 
   }
 
@@ -25,16 +36,6 @@ class GameModel {
 
   returnQuestionType() {
     return this.questions[this.state.currentQuestion].type;
-  }
-
-  returnNumberOfLifes() {
-    let number = 0;
-    this.state.lifes.forEach(function (life) {
-      if (life === `full`) {
-        number += 1;
-      }
-    });
-    return number;
   }
 
   getCurrentState() {
@@ -65,12 +66,13 @@ class GameModel {
     basicScores += scoresArray.length;
     slowScores = scoresArray.length;
 
-    basicScores = basicScores * 100;
+    basicScores = basicScores * this.settings.basicAnswerScore;
 
-    lifeBonus = this.returnNumberOfLifes();
+    lifeBonus = this.settings.lifes - this.state.mistakes;
 
-    totalScores = (basicScores) + (fastScores * 50) + (slowScores * 50 * (-1)) + (lifeBonus * 50);
-    let gameStatus = (basicScores >= 800 ? `Победа!` : `Поражение :(`);
+    totalScores = (basicScores) + (fastScores * this.settings.fastAnswerBonus) + (slowScores * this.settings.slowAnswerFine) + (lifeBonus * this.settings.lifeBonus);
+    let gameStatus = (this.state.mistakes === this.settings.lifes ? `Поражение :(` : `Победа!`);
+
     basicScores = (gameStatus === `Поражение :(` ? `Fail` : basicScores);
 
     return {

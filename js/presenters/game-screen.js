@@ -17,7 +17,7 @@ class GameScreen {
     this.footerElement = getElementFromTemplate();
     this.main = document.querySelector(`#main`);
     this.flashingState = `black`;
-    this.timer = new Timer(30, () => {
+    this.timer = new Timer(this.model.settings.timeForAnswer, () => {
       this.checkMistakes(`wrong`);
     });
   }
@@ -67,6 +67,7 @@ class GameScreen {
   //  Методы отображения игровых экранов
   showOneFromThree() {
     this.levelView = new OneFromThreeView(this.model.getCurrentQuestion());
+    console.log(this.model.questions[this.model.getCurrentState().currentQuestion].answers[0].type);
     this.levelView.onAnswer = (value) => {
       const answer = (value === this.model.questions[this.model.getCurrentState().currentQuestion].answers[0].type ? `correct` : `wrong`);
       this.checkMistakes(answer);
@@ -112,15 +113,15 @@ class GameScreen {
   checkMistakes(answer) {
     if (answer === `wrong`) {
       this.model.reduceLifes();
-    } else if (this.timer.currentTime >= 20) {
+    } else if (this.timer.currentTime >= this.model.settings.timeForAnswer - this.model.settings.fastAnswerTime) {
       answer = `fast`;
-    } else if (this.timer.currentTime <= 10) {
+    } else if (this.timer.currentTime <= this.model.settings.timeForAnswer - this.model.settings.slowAnswerTime) {
       answer = `slow`;
     }
     this.model.addAnswer(answer);
-    if (this.model.getCurrentState().mistakes === 3 || this.model.getQuestionNumber() + 1 === 10) {
+    if (this.model.getCurrentState().mistakes === this.model.settings.lifes || this.model.getQuestionNumber() + 1 === this.model.settings.numberOfQuestions) {
       this.timer.stop();
-      this.showStats(this.model.state.answers, this.model.returnNumberOfLifes(), this.model.getScores());
+      this.showStats(this.model.state.answers, this.model.getScores());
     } else {
       this.model.nextLevel();
       this.timer.stop();

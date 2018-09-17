@@ -1,10 +1,8 @@
 import AbstractView from '../components/abstract-view.js';
 
 export default class StatsView extends AbstractView {
-  constructor(answers, scores) {
+  constructor() {
     super();
-    this.answers = answers;
-    this.scores = scores;
   }
   get template() {
     const header = `
