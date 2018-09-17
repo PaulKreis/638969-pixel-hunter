@@ -67,7 +67,6 @@ class GameScreen {
   //  Методы отображения игровых экранов
   showOneFromThree() {
     this.levelView = new OneFromThreeView(this.model.getCurrentQuestion());
-    console.log(this.model.questions[this.model.getCurrentState().currentQuestion].answers[0].type);
     this.levelView.onAnswer = (value) => {
       const answer = (value === this.model.questions[this.model.getCurrentState().currentQuestion].answers[0].type ? `correct` : `wrong`);
       this.checkMistakes(answer);
