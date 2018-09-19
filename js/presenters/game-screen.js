@@ -61,6 +61,7 @@ class GameScreen {
     this.root.appendChild(this.footerElement);
     this.main.appendChild(this.root);
     this.changeScreens();
+    console.log(this.model);
     this.timer.start();
   }
 
