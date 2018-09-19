@@ -56,7 +56,6 @@ export default class TwoFromThreeView extends AbstractView {
 
     const isAllChecked = () => {
       if (isFirstChecked !== `` && isSecondChecked !== ``) {
-        console.log(radioElements[isFirstChecked].value, radioElements[isSecondChecked].value)
         this.onAnswer(radioElements[isFirstChecked].value, radioElements[isSecondChecked].value);
       }
     };

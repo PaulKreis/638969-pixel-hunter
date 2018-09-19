@@ -47,7 +47,7 @@ ${form}
 
   bind() {
     const submit = this.element.querySelector(`.rules__button`);
-    const form = submit.closest('form');
+    const form = submit.closest(`form`);
 
     const name = this.element.querySelector(`.rules__input`);
 

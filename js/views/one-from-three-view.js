@@ -40,11 +40,9 @@ export default class OneFromThreeView extends AbstractView {
     let radioElements = this.element.querySelectorAll(`input`);
     radioElements[0].addEventListener(`change`, () => {
       this.onAnswer(radioElements[0].value);
-      console.log(radioElements[0].value)
     });
     radioElements[1].addEventListener(`change`, () => {
       this.onAnswer(radioElements[1].value);
-      console.log(radioElements[1].value)
     });
   }
 }
